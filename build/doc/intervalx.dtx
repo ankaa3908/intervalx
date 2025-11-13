@@ -1,0 +1,1102 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2025 Valentin Dao
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3 of this license or (at your option) any later
+% version. The latest version of this license is in:
+%
+%   http://www.latex-project.org/lppl.txt
+%
+% and version 1.3c or later is part of all distributions of
+% LaTeX version 2008-05-04 or later.
+%
+% This work has the LPPL maintenance status 'maintained'
+% and the current maintainer is Valentin Dao (vdao.texdev@gmail.com).
+%
+% This work consists of the files intervalx.ins and intervalx.dtx,
+% along with the derived files intervalx-doc-en.pdf, and 
+% intervalx-doc-fr.pdf. In order to acquire the .tex master files 
+% producing the documentations and the .sty file, simply run this 
+% installation file through any engine.
+%
+% The repository of this work can be found at:
+%
+%   https://github.com/ankaa3908/intervalx 
+%
+% \fi
+%
+%<*readme>
+%</readme>
+%
+%<*doc-en>
+\documentclass[full, check=true, 12pt]{l3doc}
+
+\ExplSyntaxOn
+
+\tl_new:N \l__intervalx_doc_update_tl
+\tl_new:N \l__intervalx_doc_new_tl
+
+\keys_define:nn { l3doc/function }
+  {
+    maj .tl_set:N = \l__intervalx_doc_update_tl,
+    new .tl_set:N = \l__intervalx_doc_new_tl,
+  }
+
+\cs_set:Npn \__codedoc_typeset_dates:
+  {
+    \bool_lazy_all:nF
+      {
+        { \tl_if_empty_p:N \l__codedoc_date_added_tl }
+        { \tl_if_empty_p:N \l__codedoc_date_updated_tl }
+        { \tl_if_empty_p:N \l__intervalx_doc_update_tl }
+        { \tl_if_empty_p:N \l__intervalx_doc_new_tl }
+      }
+      { \midrule }
+    \tl_if_empty:NF \l__codedoc_date_added_tl
+      {
+        \multicolumn { 2 } { @{} r @{} }
+          { \scriptsize New: \, \l__codedoc_date_added_tl } \\
+      }
+    \tl_if_empty:NF \l__codedoc_date_updated_tl
+      {
+        \multicolumn { 2 } { @{} r @{} }
+          { \scriptsize Updated: \, \l__codedoc_date_updated_tl } \\
+      }
+    \tl_if_empty:NF \l__intervalx_doc_update_tl
+      {
+        \multicolumn{ 2 }{ @{} r @{} }
+          { 
+            \itshape\sffamily\scriptsize
+            Updated: 
+            \, \l__intervalx_doc_update_tl 
+          } \\
+      }
+    \tl_if_empty:NF \l__intervalx_doc_new_tl
+      {
+        \multicolumn{ 2 }{ @{} r @{} }
+          { 
+            \itshape\sffamily\scriptsize
+            New:
+            \, \l__intervalx_doc_new_tl 
+          } \\
+      }
+  }
+
+\cs_undefine:N \tsremark
+\cs_undefine:N \endtsremark
+\ExplSyntaxOff
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+
+\setmainfont{Mercury-TextG4}[
+  Extension              = .otf,
+  UprightFont            = *-Roman-OK,
+  UprightFeatures        = { Kerning = On },
+  ItalicFont             = *-Italic-Pro-OK,
+  BoldFont               = *Bold,
+  BoldFeatures           = { SmallCapsFont = *SemiboldSC },
+  BoldItalicFont         = *BoldItalic,
+  SmallCapsFont          = *RomanSC,
+]
+
+\setsansfont{Whitney}[
+  Extension       = .otf,
+  UprightFont     = *-Medium,
+  UprightFeatures = {Kerning = On, StylisticSet = 1},
+  BoldFont        = *-Semibold,
+  BoldFeatures    = {Kerning = On, StylisticSet = 1},
+  ItalicFont      = *-MediumItalic,
+  BoldItalicFont  = *-SemiboldItalic
+]
+
+\setmathfont{NewCMMath-Regular.otf}
+
+\usepackage{intervalx}
+
+\usepackage{microtype}
+\usepackage{csquotes}
+\usepackage{fontawesome5}
+\usepackage{polyglossia}
+\setmainlanguage{english}
+
+\usepackage{titlesec}
+\titleformat*{\section}{\sffamily\LARGE\bfseries}
+\titleformat*{\subsection}{\sffamily\Large\bfseries}
+
+\usepackage{luacode}
+
+\begin{luacode}
+function fontcopyright(fontname)
+  local font = fontloader.open(kpse.find_file(fontname, 'opentype fonts'))
+  if font then
+    local metrics = fontloader.to_table(font)
+    local copyright = metrics.copyright:gsub("https?://%S+$", "")
+    local copyright = copyright:gsub("Copyright%s%(C%)", "\\copyright\\")
+    local copyright = copyright:gsub("&", "\\&")
+    tex.print('\\textit{' .. metrics.fullname .. '}\\par')
+    tex.print(copyright)
+  end
+end
+\end{luacode}
+
+\usepackage{xcolor}
+\definecolor{RoyalBlue}{RGB}{0, 35, 102}
+\definecolor{RoyalRed}{RGB}{157, 16, 45}
+\definecolor{RoyalGrey}{HTML}{DEDEDE}
+
+\usepackage{codedescribe}
+\setcodekeys{numbers=left, codeprefix={\LaTeX code}, resultprefix={Result}}
+\usepackage{changelog}
+\usepackage{enumitem}
+\renewenvironment{changelogitemize}
+  {\begin{itemize}[label=\raisebox{0.5ex}{$\scriptscriptstyle\blacktriangleright$}]}
+  {\end{itemize}}
+
+\setlength{\parindent}{0pt}
+
+\usepackage{hyperref}
+\hypersetup{
+  pdfauthor   = {Valentin Dao},
+  pdftitle    = {The intervalx package},
+  pdfcreator  = {LuaLaTeX with hyperref package},
+  linkcolor   = RoyalBlue,
+  urlcolor    = RoyalRed
+}
+
+\usepackage{cleveref}
+
+\def\sarg{*}
+\def\filecreationdate{2025-11-13}
+\def\default#1{\frenchspacing\hfill(défaut: #1)}
+
+\IndexPrologue{
+  \section*{Index}
+  \addcontentsline{toc}{section}{Index}
+}
+
+\EnableCrossrefs
+\DisableImplementation
+
+\begin{document}
+
+\DeleteShortVerb\|
+
+\GetFileInfo{intervalx.sty}
+
+\title{^^A
+  The \textsf{intervalx} package^^A
+  \thanks{This file describes \fileversion}
+}
+
+\author{^^A
+  Valentin Dao^^A
+  \thanks{E-mail: \href{mailto:vdao.texdev@gmail.com}{vdao.texdev@gmail.com}}
+}
+
+\date{Realsed \filecreationdate}
+
+\maketitle
+
+\begin{documentation}
+
+\begin{abstract}
+The purpose of this package is to extend \pkg{interval}'s\footnote{\href{https://ctan.org/pkg/interval}{See on \textsc{ctan}.}} functionlities by improving the main macro and adding a few new ones. Although the implementation is has been modernised through the use of \pkg{expl3}, the approach is very similar to that used by Lars Madsen. As such, most keys will have the same name. Even though \pkg{intervalx} is presented as an extension of \pkg{interval}, new macros for composing inequalities have nevertheless been implemented. 
+\end{abstract}
+
+\tableofcontents
+
+\subsection*{License}
+
+\copyright\ 2025 Valentin Dao, published under the \LaTeX\ Project Public License (\textsc{lppl}) 1.3c
+
+\subsection*{Fonts}
+
+\directlua{fontcopyright('Mercury-TextG4-Roman-OK.otf')}
+
+\vspace*{\baselineskip}
+
+\begingroup
+\sffamily
+\directlua{fontcopyright('Whitney-Medium.otf')}
+\endgroup
+
+\subsection*{Repository}
+
+\href{https://github.com/ankaa3908/intervalx/tree/main}{\faGithub\ See GitHub repository}.
+
+\section{Package options}
+
+Here are the options that can be declared using \cs{usepackage}:
+
+\begin{function}{soft fences}
+  \begin{syntax}
+  \meta{booléen}\default{false}
+  \end{syntax}
+  This key replaces open brackets with parentheses.
+\end{function}
+
+\begin{function}{smart fences}
+  \begin{syntax}
+  \meta{booléen}\default{true}
+  \end{syntax}
+  This key automatically adapts the direction of the brackets to the presence of $+\infty$ and $-\infty$
+\end{function}
+
+\begin{function}{separator}
+  \begin{syntax}
+  \meta{token}\default{,}
+  \end{syntax}
+  Controls the character inserted between the interval bounds.
+\end{function}
+
+\section{Typeset an interval}
+
+\begin{function}{\interval}
+  \begin{syntax}
+  \sarg\oarg{keyval}\marg{list of limits}
+  \end{syntax}
+  To typeset an interval, simply use the macro in math mode, entering the limits in the form of a list:
+\end{function}
+
+\begin{codestore}[ex1]
+  \begin{equation}
+    \interval{a, b}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex1}
+
+\begin{function}{open, open right, open left}
+  To change the brackets' direction, you can use the option provided here.
+\end{function}
+
+\begin{codestore}[ex2]
+  \begin{gather}
+    \interval[open right]{a, b}\\
+    \interval[open left]{a, b}\\
+    \interval[open]{a, b}
+  \end{gather}
+\end{codestore}
+\tsdemo{ex2}
+
+The direction of the brackets also adapts itslef to \verb|-\infty| and \verb|+\infty|, provided that the corresponding option remains enabled.
+
+\begin{codestore}[ex3]
+  \begin{equation}
+    \interval{-\infty, +\infty}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex3}
+
+\begin{function}{scaled}
+  \begin{syntax}
+  big, Big, bigg, Bigg, auto\default{auto}
+  \end{syntax}
+  It is also possible to adjust the brackets/parentheses' size through the \texttt{scaled} key, which has the same usage as in the \pkg{interval} package.
+  Il est également possible d'ajuster la taille des crochets/parenthèses à travers la clé \texttt{scaled}, qui a le même comportement que dans le package \pkg{interval}.
+\end{function}
+
+\begin{codestore}[ex4]
+  \begin{equation}
+    \interval[scaled]{\frac{1}{2}, \frac{3}{2}}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex4}
+
+Finally, the starred variant typesets integer intervals by using the \pkg{stmaryrd} package.\footnote{\href{https://ctan.org/pkg/stmaryrd}{See on \textsc{ctan}}} All the keys described above are compatible with these symbols.
+
+\begin{codestore}[ex5]
+  \begin{equation}
+    \interval*{2, 10}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex5}
+
+\section{Product, reunioin}
+\section{Interval product, union, and intersection}
+
+\pkg{intervalx} also makes it easier to typeset product, union, and intersection relations between intervals.
+
+\subsection{Product}
+
+\begin{function}{\xinterval}
+  \begin{syntax}
+  \oarg{keys}\marg{*-list}
+  \end{syntax}
+  For the product, the main argument takes the same form as with \cs{interval}, but the different intervals are delimited by an asterisk.
+\end{function}
+
+\begin{tsremark}[Mnemonic:]
+  The \enquote{x} at the beginning of the macro name evokes the product symbol $\times$, while the asterisk is a way of denoting it in programming.
+\end{tsremark}
+
+\begin{codestore}[ex6]
+  \begin{equation}
+    \xinterval{2, 10 * 1, 15 * -3, 19}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex6}
+
+To combine this macro with the keys of \cs{interval}, the latter must be specified as a list delimited by semicolons (the comma being already used to separate the different keys). Here is an example to clarify this point.
+
+\begin{codestore}[ex7]
+  \begin{equation}
+    \xinterval[open right, scaled; open left, scaled]{2, 10 * 1, 15}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex7}
+
+\subsection{Union}
+
+\begin{function}{\uinterval}
+  \begin{syntax}
+    \oarg{keys}\marg{\textbar-list}
+  \end{syntax}
+  Similarly, interval union is typeset using the vertical bar as a delimiter.
+\end{function}
+
+\begin{tsremark}[Mnemonic:]
+  The \enquote{u} at the beginning of the macro name evokes the union symbol $\cup$, while the vertical bar is a way in programming to denote the logical \textit{or}.
+\end{tsremark}
+
+\begin{codestore}[ex8]
+  \begin{equation}
+    \uinterval{2, 10 | 1, 15}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex8}
+
+\subsection{Intersection}
+
+\begin{function}{\ninterval}
+  \begin{syntax}
+    \oarg{keys}\marg{\&-list}
+  \end{syntax}
+  Again, interval intersections are typeset using the ampersand as a delimiter. The use of keys is also identical to \cs{xinterval} and \cs{uinterval}.
+\end{function}
+
+\begin{tsremark}[Mnemonic:]
+  The \enquote{n} evokes the intersection symbol $\cap$, with the ampersand denoting the logical \emph{and} in programming.
+\end{tsremark}
+
+\begin{codestore}[ex9]
+  \begin{equation}
+    \ninterval{3, 20 & \pi, e^3}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex9}
+
+\section{Inequalities}
+
+\begin{function}{\ineq}
+  \begin{syntax}
+    \sarg\oarg{keys}\marg{list of limits}\oarg{variable}
+  \end{syntax}
+  The composition of inequalities is quite similar to that of intervals, with a few differences. The keys \texttt{open right}, \texttt{open left} and \texttt{open} are also available to make it easy to write strict or non-strict inequalities. In addition to the bounds, it is also possible to specify the variable, which defaults to $x$. Finally, the starred variant of the macro uses the alternative symbols from \pkg{amssymb} for non-strict inequalities.
+
+\end{function}
+
+\begin{codestore}[ex10]
+  \begin{gather}
+    \ineq{a, b}\\
+    \ineq*{a, b}[y]\\
+    \ineq[open right]{a, b}\\
+    \ineq[open left]{a, b}\\
+    \ineq[open]{a, b}
+  \end{gather}
+\end{codestore}
+\tsdemo{ex10}
+
+\begin{changelog}[sectioncmd=\section*]
+\shortversion{v=1.0.0, date=2025-07-26} 
+\end{changelog}
+
+\PrintIndex
+
+\end{documentation}
+
+\end{document}
+%</doc-en>
+%
+%<*doc-fr>
+\documentclass[full, check=true, 12pt]{l3doc}
+
+\ExplSyntaxOn
+
+\tl_new:N \l__intervalx_doc_update_tl
+\tl_new:N \l__intervalx_doc_new_tl
+
+\keys_define:nn { l3doc/function }
+  {
+    maj .tl_set:N = \l__intervalx_doc_update_tl,
+    new .tl_set:N = \l__intervalx_doc_new_tl,
+  }
+
+\cs_set:Npn \__codedoc_typeset_dates:
+  {
+    \bool_lazy_all:nF
+      {
+        { \tl_if_empty_p:N \l__codedoc_date_added_tl }
+        { \tl_if_empty_p:N \l__codedoc_date_updated_tl }
+        { \tl_if_empty_p:N \l__intervalx_doc_update_tl }
+        { \tl_if_empty_p:N \l__intervalx_doc_new_tl }
+      }
+      { \midrule }
+    \tl_if_empty:NF \l__codedoc_date_added_tl
+      {
+        \multicolumn { 2 } { @{} r @{} }
+          { \scriptsize New: \, \l__codedoc_date_added_tl } \\
+      }
+    \tl_if_empty:NF \l__codedoc_date_updated_tl
+      {
+        \multicolumn { 2 } { @{} r @{} }
+          { \scriptsize Updated: \, \l__codedoc_date_updated_tl } \\
+      }
+    \tl_if_empty:NF \l__intervalx_doc_update_tl
+      {
+        \multicolumn{ 2 }{ @{} r @{} }
+          { 
+            \itshape\sffamily\scriptsize
+            Mis~à~jour: 
+            \, \l__intervalx_doc_update_tl 
+          } \\
+      }
+    \tl_if_empty:NF \l__intervalx_doc_new_tl
+      {
+        \multicolumn{ 2 }{ @{} r @{} }
+          { 
+            \itshape\sffamily\scriptsize
+            Nouveau:
+            \, \l__intervalx_doc_new_tl 
+          } \\
+      }
+  }
+
+\cs_undefine:N \tsremark
+\cs_undefine:N \endtsremark
+\ExplSyntaxOff
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+
+\setmainfont{Mercury-TextG4}[
+  Extension              = .otf,
+  UprightFont            = *-Roman-OK,
+  UprightFeatures        = { Kerning = On },
+  ItalicFont             = *-Italic-Pro-OK,
+  BoldFont               = *Bold,
+  BoldFeatures           = { SmallCapsFont = *SemiboldSC },
+  BoldItalicFont         = *BoldItalic,
+  SmallCapsFont          = *RomanSC,
+]
+
+\setsansfont{Whitney}[
+  Extension       = .otf,
+  UprightFont     = *-Medium,
+  UprightFeatures = {Kerning = On, StylisticSet = 1},
+  BoldFont        = *-Semibold,
+  BoldFeatures    = {Kerning = On, StylisticSet = 1},
+  ItalicFont      = *-MediumItalic,
+  BoldItalicFont  = *-SemiboldItalic
+]
+
+\setmathfont{NewCMMath-Regular.otf}
+
+\usepackage{intervalx}
+
+\usepackage{microtype}
+\usepackage{csquotes}
+\usepackage{fontawesome5}
+\usepackage{polyglossia}
+\setmainlanguage{french}
+
+\usepackage{titlesec}
+\titleformat*{\section}{\sffamily\LARGE\bfseries}
+\titleformat*{\subsection}{\sffamily\Large\bfseries}
+
+\usepackage{luacode}
+
+\begin{luacode}
+function fontcopyright(fontname)
+  local font = fontloader.open(kpse.find_file(fontname, 'opentype fonts'))
+  if font then
+    local metrics = fontloader.to_table(font)
+    local copyright = metrics.copyright:gsub("https?://%S+$", "")
+    local copyright = copyright:gsub("Copyright%s%(C%)", "\\copyright\\")
+    local copyright = copyright:gsub("&", "\\&")
+    tex.print('\\textit{' .. metrics.fullname .. '}\\par')
+    tex.print(copyright)
+  end
+end
+\end{luacode}
+
+\usepackage{xcolor}
+\definecolor{RoyalBlue}{RGB}{0, 35, 102}
+\definecolor{RoyalRed}{RGB}{157, 16, 45}
+\definecolor{RoyalGrey}{HTML}{DEDEDE}
+
+\usepackage{codedescribe}
+\setcodekeys{numbers=left, codeprefix={Code \LaTeX}, resultprefix={Résultat}}
+\usepackage{changelog}
+\usepackage{enumitem}
+\renewenvironment{changelogitemize}
+  {\begin{itemize}[label=\raisebox{0.5ex}{$\scriptscriptstyle\blacktriangleright$}]}
+  {\end{itemize}}
+
+\DeclareTranslation{French}{changelog}{Historique des modifications}
+
+\setlength{\parindent}{0pt}
+
+\usepackage{hyperref}
+\hypersetup{
+  pdfauthor   = {Valentin Dao},
+  pdftitle    = {L'extension intervalx},
+  pdfcreator  = {LuaLaTeX with hyperref package},
+  linkcolor   = RoyalBlue,
+  urlcolor    = RoyalRed
+}
+
+\usepackage{cleveref}
+
+\def\sarg{*}
+\def\filecreationdate{13-11-2025}
+\def\default#1{\frenchspacing\hfill(défaut: #1)}
+
+\IndexPrologue{
+  \section*{Index}
+  \addcontentsline{toc}{section}{Index}
+}
+
+\EnableCrossrefs
+\DisableImplementation
+
+\begin{document}
+
+\DeleteShortVerb\|
+
+\GetFileInfo{intervalx.sty}
+
+\ExplSyntaxOn
+\seq_gset_split:Nne \g_tmpa_seq { - } { \filedate }
+\seq_reverse:N \g_tmpa_seq
+\xdef\filedate{ \seq_use:Nn \g_tmpa_seq { - } }
+\ExplSyntaxOff
+
+\title{^^A
+  L'extension \textsf{intervalx}^^A
+  \thanks{Ce fichier décrit la version \fileversion}
+}
+
+\author{^^A
+  Valentin Dao^^A
+  \thanks{E-mail: \href{mailto:vdao.texdev@gmail.com}{vdao.texdev@gmail.com}}
+}
+
+\date{Publiée le \filecreationdate}
+
+\maketitle
+
+\begin{documentation}
+
+\begin{abstract}
+
+Le présent package a pour but d'étendre les fonctionnalités d'\pkg{interval}\footnote{\href{https://ctan.org/pkg/interval}{Voir sur \textsc{ctan}}} en améliorant la macro principale et en y ajoutant quelques unes. Bien que l'implémentation soit modernisée car utilisant \pkg{expl3}, l'approche n'est que très peu différente de celle employée par Lars Madsen. Ainsi, la plupart des clés porteront le même nom. Même si \pkg{intervalx} se présente comme une extension d'\pkg{interval}, de nouvelles macros pour la composition d'inégalités ont tout de même été implémentées.
+
+\end{abstract}
+
+\tableofcontents
+
+\subsection*{Licence}
+
+\copyright\ 2025 Valentin Dao, publié sous la \LaTeX\ Project Public License (\textsc{lppl}) 1.3c
+
+\subsection*{Polices}
+
+\directlua{fontcopyright('Mercury-TextG4-Roman-OK.otf')}
+
+\vspace*{\baselineskip}
+
+\begingroup
+\sffamily
+\directlua{fontcopyright('Whitney-Medium.otf')}
+\endgroup
+
+\subsection*{Dépôt}
+
+\href{https://github.com/ankaa3908/intervalx/tree/main}{\faGithub\ Voir dépôt GitHub}.
+
+\section{Options de package}
+
+Voici les options de package pouvant être déclarées avec \cs{usepackage}:
+
+\begin{function}{soft fences}
+  \begin{syntax}
+  \meta{booléen}\default{false}
+  \end{syntax}
+  Cette clé remplace les crochets ouverts par des parenthèses.
+\end{function}
+
+\begin{function}{smart fences}
+  \begin{syntax}
+  \meta{booléen}\default{true}
+  \end{syntax}
+  Cette clé permet d'adapter automatiquement le sens des crochets à $+\infty$ et $-\infty$.
+\end{function}
+
+\begin{function}{separator}
+  \begin{syntax}
+  \meta{token}\default{,}
+  \end{syntax}
+  Contrôle le caractère inséré entre les deux bornes de l'intervalle.
+\end{function}
+
+\section{Composer un intervalle}
+
+\begin{function}{\interval}
+  \begin{syntax}
+  \sarg\oarg{liste de clés}\marg{liste des bornes}
+  \end{syntax}
+  Pour composer un intervalle, il suffit d'employer la macro en mode mathématique en renseignant les bornes sous forme d'une liste: 
+\end{function}
+
+\begin{codestore}[ex1]
+  \begin{equation}
+    \interval{a, b}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex1}
+
+\begin{function}{open, open right, open left}
+  Pour changer le sens des crochets, on peut employer les options ici présentes
+\end{function}
+
+\begin{codestore}[ex2]
+  \begin{gather}
+    \interval[open right]{a, b}\\
+    \interval[open left]{a, b}\\
+    \interval[open]{a, b}
+  \end{gather}
+\end{codestore}
+\tsdemo{ex2}
+
+Le sens des crochets d'adapte aussi de lui-même à \verb|-\infty| et \verb|+\infty|, pourvu que l'option associée demeure activée.
+
+\begin{codestore}[ex3]
+  \begin{equation}
+    \interval{-\infty, +\infty}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex3}
+
+\begin{function}{scaled}
+  \begin{syntax}
+  big, Big, bigg, Bigg, auto\default{auto}
+  \end{syntax}
+  Il est également possible d'ajuster la taille des crochets/parenthèses à travers la clé \texttt{scaled}, qui a le même comportement que dans le package \pkg{interval}.
+\end{function}
+
+\begin{codestore}[ex4]
+  \begin{equation}
+    \interval[scaled]{\frac{1}{2}, \frac{3}{2}}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex4}
+
+Enfin, la variante étoilée permet de composer des intervalles d'entiers, en utilisant le package \pkg{stmaryrd}.\footnote{\href{https://ctan.org/pkg/stmaryrd}{Voir sur \textsc{ctan}}} Toutes les clés citées ci-dessus sont compatibles avec ces symboles.
+
+\begin{codestore}[ex5]
+  \begin{equation}
+    \interval*{2, 10}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex5}
+
+\section{Produit, réunion et intersection d'intervalles}
+
+\pkg{intervalx} permet aussi de plus facilement saisir les relations de produit, de réunion, et d'intersection d'intervalles.
+
+\subsection{Produit}
+
+\begin{function}{\xinterval}
+  \begin{syntax}
+  \oarg{clés}\marg{*-liste}
+  \end{syntax}
+  Pour les produits, l'argument principale prend la même forme qu'avec \cs{interval}, mais les différents intervalles sont séparés d'un astérisque.
+\end{function}
+
+\begin{tsremark}[Astuce mnémotechnique:]
+  Le \enquote{x} au début du nom de la macro évoque le symbole du produit $\times$, tandis que l'astérisque est une façon en programmation de le dénoter.
+\end{tsremark}
+
+\begin{codestore}[ex6]
+  \begin{equation}
+    \xinterval{2, 10 * 1, 15 * -3, 19}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex6}
+
+Pour combiner cette macro avec les clés d'\cs{interval}, ces dernières doivent être spécifiées sous forme d'une liste délimitée par le point-virgule (la virgule étant déjà prise pour séparer les différentes clés). Voici un exemple pour clarifier ce point.
+
+\begin{codestore}[ex7]
+  \begin{equation}
+    \xinterval[open right, scaled; open left, scaled]{2, 10 * 1, 15}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex7}
+
+\subsection{Réunion}
+
+\begin{function}{\uinterval}
+  \begin{syntax}
+    \oarg{clés}\marg{\textbar-liste}
+  \end{syntax}
+  De même, la réunion d'intervalles se compose en utilisant cette fois ci la barre verticale comme délimiteur.
+\end{function}
+
+\begin{tsremark}[Astuce mnémotechnique:]
+  Le \enquote{u} au début du nom de la macro évoque le symbole de réunion $\cup$, tandis que la barre verticale est une façon en programmation de dénoter le \textit{ou} mathématique.
+\end{tsremark}
+
+\begin{codestore}[ex8]
+  \begin{equation}
+    \uinterval{2, 10 | 1, 15}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex8}
+
+\subsection{Intersection}
+
+\begin{function}{\ninterval}
+  \begin{syntax}
+    \oarg{clés}\marg{\&-liste}
+  \end{syntax}
+  De la même manière, les intersections d'intervalles se réalisent en utilisant l'éperluette comme délimiteur. L'emploi des clés est, là aussi, identique à \cs{xinterval} et \cs{uinterval}
+\end{function}
+
+\begin{tsremark}[Astuce mnémotechnique:]
+  Le \enquote{n} évoque quant à lui le symbole d'interséction $\cap$, avec l'éperluette désigant en programmation le \emph{et} mathématique.
+\end{tsremark}
+
+\begin{codestore}[ex9]
+  \begin{equation}
+    \ninterval{3, 20 & \pi, e^3}
+  \end{equation}
+\end{codestore}
+\tsdemo{ex9}
+
+\section{Inégalités}
+
+\begin{function}{\ineq}
+  \begin{syntax}
+    \sarg\oarg{clés}\marg{liste des bornes}\oarg{variable}
+  \end{syntax}
+  La composition d'inégalités est assez similaire à celle des intervalles, à quelques différences près. Les clés \texttt{open right}, \texttt{open left} et \texttt{open} sont aussi accessibles pour permettre de facilement écrire des inégalités strictes ou larges. En plus des bornes, il est également possible d'indiquer la variable, correspondant à $x$ par défaut. Enfin, la variante étoilée de la macro emploie les symboles alternatifs d'\pkg{amssymb} pour les inégalités larges. 
+\end{function}
+
+\begin{codestore}[ex10]
+  \begin{gather}
+    \ineq{a, b}\\
+    \ineq*{a, b}[y]\\
+    \ineq[open right]{a, b}\\
+    \ineq[open left]{a, b}\\
+    \ineq[open]{a, b}
+  \end{gather}
+\end{codestore}
+\tsdemo{ex10}
+
+\begin{changelog}[sectioncmd=\section*]
+\shortversion{v=1.0.0, date=2025-07-26, changes=Version initiale.} 
+\end{changelog}
+
+\PrintIndex
+
+\end{documentation}
+
+\end{document}
+%</doc-fr>
+%
+%    \begin{macrocode}
+%<*package>
+%<@@=intervalx_pkg>
+
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{expl3}[2024-12-08]
+\RequirePackage{stmaryrd}
+\ProvidesExplPackage{intervalx}{}{v1.0.0}{Formatting mathematical intervals and inequalities.}
+
+\AtBeginDocument{
+  \cs_if_exist:NF \leqslant
+    { \usepackage{amssymb} }
+}
+
+\tl_new:N \l_@@_left_fence_tl
+\tl_new:N \l_@@_right_fence_tl
+\tl_new:N \l_@@_open_fence_tl
+\tl_new:N \l_@@_close_fence_tl
+\tl_new:N \l_@@_left_size_tl
+\tl_new:N \l_@@_right_size_tl
+\tl_new:N \l_@@_sep_tl
+
+\tl_new:N \l_@@_left_relation_tl
+\tl_new:N \l_@@_right_relation_tl
+\tl_set:Nn \l_@@_left_relation_tl 
+  { 
+    \bool_if:NTF \l_@@_starred_ineq_bool
+      { \leqslant }
+      { \leq } 
+  }
+\tl_set:Nn \l_@@_right_relation_tl 
+  { 
+    \bool_if:NTF \l_@@_starred_ineq_bool
+      { \leqslant }
+      { \leq } 
+  }
+\tl_new:N \l_@@_var_tl
+
+\tl_const:Nn \c_@@_left_fence_tl
+  {
+    \bool_if:NTF \l_@@_integer_bracket_bool
+      { \llbracket }
+      { [ }
+  }
+
+\tl_const:Nn \c_@@_right_fence_tl
+  {
+    \bool_if:NTF \l_@@_integer_bracket_bool
+      { \rrbracket }
+      { ] }
+  }
+
+\tl_set:Nn \l_@@_left_fence_tl
+  {
+    \bool_if:NTF \l_@@_integer_bracket_bool
+      { \llbracket }
+      { [ }
+  }
+
+\tl_set:Nn \l_@@_right_fence_tl
+  {
+    \bool_if:NTF \l_@@_integer_bracket_bool
+      { \rrbracket }
+      { ] }
+  }
+
+\tl_set:Nn \l_@@_open_fence_tl
+  {
+    \tex_mathopen:D
+      {
+        \l_@@_left_size_tl
+        \l_@@_left_fence_tl
+      }
+  }
+
+\tl_set:Nn \l_@@_close_fence_tl
+  {
+    \tex_mathclose:D
+      {
+        \l_@@_right_size_tl
+        \l_@@_right_fence_tl
+      }
+  }
+
+\bool_new:N \g_@@_soft_fences_bool
+\bool_new:N \g_@@_smart_fences_bool
+\bool_new:N \l_@@_starred_ineq_bool
+\bool_new:N \l_@@_integer_bracket_bool
+\bool_set_false:N \l_@@_integer_bracket_bool
+\bool_set_true:N \g_@@_smart_fences_bool
+
+\clist_new:N \l_@@_option_list_seq
+
+\keys_define:nn { intervalx }
+  {
+    soft~fences .bool_gset:N = \g_@@_soft_fences_bool,
+    soft~fences .usage:n = { preamble },
+    soft~fences .initial:n = { false },
+
+    smart~fences .bool_gset:N = \g_@@_smart_fences_bool,
+    smart~fences .usage:n = { preamble },
+    smart~fences .initial:n = { true },
+
+    separator .tl_set:N = \l_@@_sep_tl,
+    separator .usage:n = { preamble },
+    separator .initial:n = { , },
+  }
+
+\ProcessKeyOptions[intervalx]
+
+\cs_new_protected:Nn \@@_process_smart_fences:
+  {
+    \tl_set:Ne \l_tmpa_tl { \clist_item:Nn \l_tmpa_clist { 1 } }
+    \tl_set:Ne \l_tmpb_tl { \clist_item:Nn \l_tmpa_clist { 2 } }
+    \tl_if_regex_match:VnT \l_tmpa_tl { -\c{infty} }
+      {
+        \bool_if:NTF \g_@@_soft_fences_bool
+          { \tl_set:Nn \l_@@_left_fence_tl  { ( } }
+          { \tl_set_eq:NN \l_@@_left_fence_tl \c_@@_right_fence_tl }
+      }
+    \tl_if_regex_match:VnT \l_tmpb_tl { +\c{infty} }
+      {
+        \bool_if:NTF \g_@@_soft_fences_bool
+          { \tl_set:Nn \l_@@_right_fence_tl  { ) } }
+          { \tl_set_eq:NN \l_@@_right_fence_tl \c_@@_left_fence_tl }
+      }
+  }
+
+\cs_new_protected:Npn \@@_parse_interval_arg:n #1
+  {
+    \clist_set:Nn \l_tmpa_clist { #1 }
+    \bool_if:NT \g_@@_smart_fences_bool
+      { \@@_process_smart_fences: }
+    \tl_use:N \l_@@_open_fence_tl
+    \clist_item:Nn \l_tmpa_clist { 1 }
+    \tl_use:N \l_@@_sep_tl
+    \clist_item:Nn \l_tmpa_clist { 2 }
+    \tl_use:N \l_@@_close_fence_tl
+  }
+
+\cs_new_protected:Npn \@@_parse_list_arg:nnN #1#2#3
+  {
+    \seq_set_split:Nnn \l_tmpa_seq { #2 } { #1 }
+    \seq_map_indexed_inline:Nn \l_tmpa_seq
+      {
+        \group_begin:
+        \keys_set:ne { interval }
+          { \seq_item:Nn \l_@@_option_list_seq { ##1 } }
+        \exp_args:Ne
+        \@@_parse_interval_arg:n
+          { \seq_item:Nn \l_tmpa_seq { ##1 } }
+        \int_compare:nNnF { ##1 } = { \seq_count:N \l_tmpa_seq }
+          { #3 }
+        \group_end:
+      }
+  }
+
+\cs_new_protected:Npn \@@_parse_ineq_arg:n #1
+  {
+    \clist_set:Nn \l_tmpa_clist { #1 }
+    \clist_item:Nn \l_tmpa_clist { 1 }
+    \tl_use:N \l_@@_left_relation_tl
+    \tl_use:N \l_@@_var_tl
+    \tl_use:N \l_@@_right_relation_tl
+    \clist_item:Nn \l_tmpa_clist { 2 }
+  }
+
+\keys_define:nn { ineq }
+  {
+    open~left  .code:n  = { \tl_set:Nn \l_@@_left_relation_tl { < } },
+    open~right .code:n  = { \tl_set:Nn \l_@@_right_relation_tl { < } },
+    open       .meta:n  = { open~left, open~right },
+  }
+
+\keys_define:nn { interval }
+  {
+    open~left .code:n =
+      {
+        \bool_if:NTF \g_@@_soft_fences_bool
+          { \tl_set:Nn \l_@@_left_fence_tl { ( } }
+          { \tl_set_eq:NN \l_@@_left_fence_tl \c_@@_right_fence_tl }
+      },
+    open~right .code:n =
+      {
+        \bool_if:NTF \g_@@_soft_fences_bool
+          { \tl_set:Nn \l_@@_right_fence_tl { ) } }
+          { \tl_set_eq:NN \l_@@_right_fence_tl \c_@@_left_fence_tl }
+      },
+    open .meta:n = { open~left, open~right },
+
+    scaled .choice:,
+      scaled / auto .code:n =
+        {
+          \tl_set:Nn \l_@@_open_fence_tl
+            {
+              \tex_mathopen:D {}
+              \tex_mathclose:D
+              \c_group_begin_token
+              \tex_left:D
+              \l_@@_left_fence_tl
+            }
+          \tl_set:Nn \l_@@_close_fence_tl
+            {
+              \group_insert_after:N \c_group_end_token
+              \tex_right:D
+              \l_@@_right_fence_tl
+            }
+        },
+      scaled / big .code:n =
+        {
+          \tl_set_eq:Nc \l_@@_left_size_tl { #1l }
+          \tl_set_eq:Nc \l_@@_right_size_tl { #1r }
+        },
+      scaled / Big .code:n =
+        {
+          \tl_set_eq:Nc \l_@@_left_size_tl { #1l }
+          \tl_set_eq:Nc \l_@@_right_size_tl { #1r }
+        },
+      scaled / bigg .code:n =
+        {
+          \tl_set_eq:Nc \l_@@_left_size_tl { #1l }
+          \tl_set_eq:Nc \l_@@_right_size_tl { #1r }
+        },
+      scaled / Bigg .code:n =
+        {
+          \tl_set_eq:Nc \l_@@_left_size_tl { #1l }
+          \tl_set_eq:Nc \l_@@_right_size_tl { #1r }
+        },
+    scaled .default:n = { auto },
+  }
+
+\NewDocumentCommand{\interval}{ s O{} m }
+  {
+    \group_begin:
+    \IfBooleanT{#1}{ \bool_set_true:N \l_@@_integer_bracket_bool }
+    \keys_set:nn { interval } { #2 }
+    \@@_parse_interval_arg:n { #3 }
+    \group_end:
+  }
+
+\NewDocumentCommand{\xinterval}{ O{} m }
+  {
+    \group_begin:
+    \seq_set_split:Nnn \l_@@_option_list_seq { ; } { #1 }
+    \@@_parse_list_arg:nnN { #2 } { * } \times
+    \group_end:
+  }
+
+\NewDocumentCommand{\ninterval}{ O{} m }
+  {
+    \group_begin:
+    \seq_set_split:Nnn \l_@@_option_list_seq { ; } { #1 }
+    \@@_parse_list_arg:nnN { #2 } { & } \cap
+    \group_end:
+  }
+
+\NewDocumentCommand{\uinterval}{ O{} m }
+  {
+    \group_begin:
+    \seq_set_split:Nnn \l_@@_option_list_seq { ; } { #1 }
+    \@@_parse_list_arg:nnN { #2 } { | } \cup
+    \group_end:
+  }
+
+\NewDocumentCommand{\ineq}{ s O{} m O{x} }
+  {
+    \group_begin:
+    \IfBooleanT{#1}
+      { \bool_set_true:N \l_@@_starred_ineq_bool }
+    \keys_set:nn { ineq } { #2 }
+    \tl_set:Nn \l_@@_var_tl { #4 }
+    \@@_parse_ineq_arg:n { #3 }
+    \group_end:
+  }
+
+\ExplSyntaxOff
+
+%</package>
+%    \end{macrocode}

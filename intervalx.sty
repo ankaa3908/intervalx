@@ -1,0 +1,312 @@
+%%
+%% This is file `intervalx.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% intervalx.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2025 Valentin Dao
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3 of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%% 
+%%   http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2008-05-04 or later.
+%% 
+%% This work has the LPPL maintenance status 'maintained'
+%% and the current maintainer is Valentin Dao (vdao.texdev@gmail.com).
+%% 
+%% This work consists of the files intervalx.ins and intervalx.dtx,
+%% along with the derived files intervalx-doc-en.pdf, and
+%% intervalx-doc-fr.pdf. In order to acquire the .tex master files
+%% producing the documentations and the .sty file, simply run the
+%% installation file through any engine.
+%% 
+%% The repository of this work can be found at:
+%% 
+%%   https://github.com/ankaa3908/intervalx
+%% 
+
+\NeedsTeXFormat{LaTeX2e}
+\RequirePackage{expl3}[2024-12-08]
+\RequirePackage{stmaryrd}
+\ProvidesExplPackage{intervalx}{}{v1.0.0}{Formatting mathematical intervals and inequalities.}
+
+\AtBeginDocument{
+  \cs_if_exist:NF \leqslant
+    { \usepackage{amssymb} }
+}
+
+\tl_new:N \l__intervalx_pkg_left_fence_tl
+\tl_new:N \l__intervalx_pkg_right_fence_tl
+\tl_new:N \l__intervalx_pkg_open_fence_tl
+\tl_new:N \l__intervalx_pkg_close_fence_tl
+\tl_new:N \l__intervalx_pkg_left_size_tl
+\tl_new:N \l__intervalx_pkg_right_size_tl
+\tl_new:N \l__intervalx_pkg_sep_tl
+
+\tl_new:N \l__intervalx_pkg_left_relation_tl
+\tl_new:N \l__intervalx_pkg_right_relation_tl
+\tl_set:Nn \l__intervalx_pkg_left_relation_tl {<}
+\tl_set:Nn \l__intervalx_pkg_right_relation_tl {<}
+\tl_new:N \l__intervalx_pkg_var_tl
+
+\tl_const:Nn \c__intervalx_pkg_left_fence_tl
+  {
+    \bool_if:NTF \l__intervalx_pkg_integer_bracket_bool
+      { \llbracket }
+      { [ }
+  }
+
+\tl_const:Nn \c__intervalx_pkg_right_fence_tl
+  {
+    \bool_if:NTF \l__intervalx_pkg_integer_bracket_bool
+      { \rrbracket }
+      { ] }
+  }
+
+\tl_set:Nn \l__intervalx_pkg_left_fence_tl
+  {
+    \bool_if:NTF \l__intervalx_pkg_integer_bracket_bool
+      { \llbracket }
+      { [ }
+  }
+
+\tl_set:Nn \l__intervalx_pkg_right_fence_tl
+  {
+    \bool_if:NTF \l__intervalx_pkg_integer_bracket_bool
+      { \rrbracket }
+      { ] }
+  }
+
+\tl_set:Nn \l__intervalx_pkg_open_fence_tl
+  {
+    \tex_mathopen:D
+      {
+        \l__intervalx_pkg_left_size_tl
+        \l__intervalx_pkg_left_fence_tl
+      }
+  }
+
+\tl_set:Nn \l__intervalx_pkg_close_fence_tl
+  {
+    \tex_mathclose:D
+      {
+        \l__intervalx_pkg_right_size_tl
+        \l__intervalx_pkg_right_fence_tl
+      }
+  }
+
+\bool_new:N \g__intervalx_pkg_soft_fences_bool
+\bool_new:N \g__intervalx_pkg_smart_fences_bool
+\bool_new:N \l__intervalx_pkg_starred_ineq_bool
+\bool_new:N \l__intervalx_pkg_integer_bracket_bool
+\bool_set_false:N \l__intervalx_pkg_integer_bracket_bool
+\bool_set_true:N \g__intervalx_pkg_smart_fences_bool
+
+\clist_new:N \l__intervalx_pkg_option_list_seq
+
+\keys_define:nn { intervalx }
+  {
+    soft~fences .bool_gset:N = \g__intervalx_pkg_soft_fences_bool,
+    soft~fences .usage:n = { preamble },
+    soft~fences .initial:n = { false },
+
+    smart~fences .bool_gset:N = \g__intervalx_pkg_smart_fences_bool,
+    smart~fences .usage:n = { preamble },
+    smart~fences .initial:n = { true },
+
+    separator .tl_set:N = \l__intervalx_pkg_sep_tl,
+    separator .usage:n = { preamble },
+    separator .initial:n = { , },
+  }
+
+\ProcessKeyOptions[intervalx]
+
+\cs_new_protected:Nn \__intervalx_pkg_process_smart_fences:
+  {
+    \tl_set:Ne \l_tmpa_tl { \clist_item:Nn \l_tmpa_clist { 1 } }
+    \tl_set:Ne \l_tmpb_tl { \clist_item:Nn \l_tmpa_clist { 2 } }
+    \tl_if_regex_match:VnT \l_tmpa_tl { -\c{infty} }
+      {
+        \bool_if:NTF \g__intervalx_pkg_soft_fences_bool
+          { \tl_set:Nn \l__intervalx_pkg_left_fence_tl  { ( } }
+          { \tl_set_eq:NN \l__intervalx_pkg_left_fence_tl \c__intervalx_pkg_right_fence_tl }
+      }
+    \tl_if_regex_match:VnT \l_tmpb_tl { +\c{infty} }
+      {
+        \bool_if:NTF \g__intervalx_pkg_soft_fences_bool
+          { \tl_set:Nn \l__intervalx_pkg_right_fence_tl  { ) } }
+          { \tl_set_eq:NN \l__intervalx_pkg_right_fence_tl \c__intervalx_pkg_left_fence_tl }
+      }
+  }
+
+\cs_new_protected:Npn \__intervalx_pkg_parse_interval_arg:n #1
+  {
+    \clist_set:Nn \l_tmpa_clist { #1 }
+    \bool_if:NT \g__intervalx_pkg_smart_fences_bool
+      { \__intervalx_pkg_process_smart_fences: }
+    \tl_use:N \l__intervalx_pkg_open_fence_tl
+    \clist_item:Nn \l_tmpa_clist { 1 }
+    \tl_use:N \l__intervalx_pkg_sep_tl
+    \clist_item:Nn \l_tmpa_clist { 2 }
+    \tl_use:N \l__intervalx_pkg_close_fence_tl
+  }
+
+\cs_new_protected:Npn \__intervalx_pkg_parse_list_arg:nnN #1#2#3
+  {
+    \seq_set_split:Nnn \l_tmpa_seq { #2 } { #1 }
+    \seq_map_indexed_inline:Nn \l_tmpa_seq
+      {
+        \group_begin:
+        \keys_set:ne { interval }
+          { \seq_item:Nn \l__intervalx_pkg_option_list_seq { ##1 } }
+        \exp_args:Ne
+        \__intervalx_pkg_parse_interval_arg:n
+          { \seq_item:Nn \l_tmpa_seq { ##1 } }
+        \int_compare:nNnF { ##1 } = { \seq_count:N \l_tmpa_seq }
+          { #3 }
+        \group_end:
+      }
+  }
+
+\cs_new_protected:Npn \__intervalx_pkg_parse_ineq_arg:n #1
+  {
+    \clist_set:Nn \l_tmpa_clist { #1 }
+    \clist_item:Nn \l_tmpa_clist { 1 }
+    \tl_use:N \l__intervalx_pkg_left_relation_tl
+    \tl_use:N \l__intervalx_pkg_var_tl
+    \tl_use:N \l__intervalx_pkg_right_relation_tl
+    \clist_item:Nn \l_tmpa_clist { 2 }
+  }
+
+\keys_define:nn { ineq }
+  {
+    open~left .code:n =
+      {
+        \bool_if:NTF \l__intervalx_pkg_starred_ineq_bool
+          { \tl_set_eq:NN \l__intervalx_pkg_right_relation_tl \leqslant }
+          { \tl_set_eq:NN \l__intervalx_pkg_right_relation_tl \le }
+      },
+    open~right .code:n  =
+      {
+        \bool_if:NTF \l__intervalx_pkg_starred_ineq_bool
+          { \tl_set_eq:NN \l__intervalx_pkg_left_relation_tl \leqslant }
+          { \tl_set_eq:NN \l__intervalx_pkg_left_relation_tl \le }
+      },
+    open .meta:n = { open~left, open~right },
+  }
+
+\keys_define:nn { interval }
+  {
+    open~left .code:n =
+      {
+        \bool_if:NTF \g__intervalx_pkg_soft_fences_bool
+          { \tl_set:Nn \l__intervalx_pkg_left_fence_tl { ( } }
+          { \tl_set_eq:NN \l__intervalx_pkg_left_fence_tl \c__intervalx_pkg_right_fence_tl }
+      },
+    open~right .code:n =
+      {
+        \bool_if:NTF \g__intervalx_pkg_soft_fences_bool
+          { \tl_set:Nn \l__intervalx_pkg_right_fence_tl { ) } }
+          { \tl_set_eq:NN \l__intervalx_pkg_right_fence_tl \c__intervalx_pkg_left_fence_tl }
+      },
+    open .meta:n = { open~left, open~right },
+
+    scaled .choice:,
+      scaled / auto .code:n =
+        {
+          \tl_set:Nn \l__intervalx_pkg_open_fence_tl
+            {
+              \tex_mathopen:D {}
+              \tex_mathclose:D
+              \c_group_begin_token
+              \tex_left:D
+              \l__intervalx_pkg_left_fence_tl
+            }
+          \tl_set:Nn \l__intervalx_pkg_close_fence_tl
+            {
+              \group_insert_after:N \c_group_end_token
+              \tex_right:D
+              \l__intervalx_pkg_right_fence_tl
+            }
+        },
+      scaled / big .code:n =
+        {
+          \tl_set_eq:Nc \l__intervalx_pkg_left_size_tl { #1l }
+          \tl_set_eq:Nc \l__intervalx_pkg_right_size_tl { #1r }
+        },
+      scaled / Big .code:n =
+        {
+          \tl_set_eq:Nc \l__intervalx_pkg_left_size_tl { #1l }
+          \tl_set_eq:Nc \l__intervalx_pkg_right_size_tl { #1r }
+        },
+      scaled / bigg .code:n =
+        {
+          \tl_set_eq:Nc \l__intervalx_pkg_left_size_tl { #1l }
+          \tl_set_eq:Nc \l__intervalx_pkg_right_size_tl { #1r }
+        },
+      scaled / Bigg .code:n =
+        {
+          \tl_set_eq:Nc \l__intervalx_pkg_left_size_tl { #1l }
+          \tl_set_eq:Nc \l__intervalx_pkg_right_size_tl { #1r }
+        },
+    scaled .default:n = { auto },
+  }
+
+\NewDocumentCommand{\interval}{ s O{} m }
+  {
+    \group_begin:
+    \IfBooleanT{#1}{ \bool_set_true:N \l__intervalx_pkg_integer_bracket_bool }
+    \keys_set:nn { interval } { #2 }
+    \__intervalx_pkg_parse_interval_arg:n { #3 }
+    \group_end:
+  }
+
+\NewDocumentCommand{\xinterval}{ O{} m }
+  {
+    \group_begin:
+    \seq_set_split:Nnn \l__intervalx_pkg_option_list_seq { ; } { #1 }
+    \__intervalx_pkg_parse_list_arg:nnN { #2 } { * } \times
+    \group_end:
+  }
+
+\NewDocumentCommand{\ninterval}{ O{} m }
+  {
+    \group_begin:
+    \seq_set_split:Nnn \l__intervalx_pkg_option_list_seq { ; } { #1 }
+    \__intervalx_pkg_parse_list_arg:nnN { #2 } { & } \cap
+    \group_end:
+  }
+
+\NewDocumentCommand{\uinterval}{ O{} m }
+  {
+    \group_begin:
+    \seq_set_split:Nnn \l__intervalx_pkg_option_list_seq { ; } { #1 }
+    \__intervalx_pkg_parse_list_arg:nnN { #2 } { | } \cup
+    \group_end:
+  }
+
+\NewDocumentCommand{\ineq}{ s O{} m O{x} }
+  {
+    \group_begin:
+    \IfBooleanT{#1}
+      { \bool_set_true:N \l__intervalx_pkg_starred_ineq_bool }
+    \keys_set:nn { ineq } { #2 }
+    \tl_set:Nn \l__intervalx_pkg_var_tl { #4 }
+    \__intervalx_pkg_parse_ineq_arg:n { #3 }
+    \group_end:
+  }
+
+\ExplSyntaxOff
+
+\endinput
+%%
+%% End of file `intervalx.sty'.

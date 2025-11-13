@@ -1,0 +1,30 @@
+\input regression-test.tex
+
+\documentclass{article}
+
+\usepackage{amsmath, intervalx}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{gather*}
+  \interval{a, b}\\
+  \interval[scaled]{\frac 12, \frac 34}\\
+  \interval[scaled, open right]{\frac 12, \frac 34}\\
+  \interval[scaled, open left]{\frac 12, \frac 34}\\
+  \interval[scaled, open]{\frac 12, \frac 34}\\
+  \interval*[scaled, open right]{\frac 12, \frac 34}\\
+  \interval*[scaled, open left]{\frac 12, \frac 34}\\
+  \interval*[scaled, open]{\frac 12, \frac 34}\\
+  \xinterval[open left; open right; open]{a, b * c, d * e, f}\\
+  \ninterval[open left; open right; open]{a, b & c, d & e, f}\\
+  \uinterval[open left; open right; open]{a, b | c, d | e, f}\\
+  \ineq{a, b}\\
+  \ineq*{a, b}[y]\\
+  \ineq[open right]{a, b}\\
+  \ineq[open left]{a, b}\\
+  \ineq[open]{a, b}
+\end{gather*}
+
+\end{document}

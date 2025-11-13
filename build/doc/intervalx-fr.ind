@@ -1,0 +1,50 @@
+
+ \begin{theindex} 
+ \makeatletter\scan@allowedfalse
+{\bfseries\hfil I\hfil}\nopagebreak
+
+  \item {\verbatim@font \verb*&\ineq&}\pfill \hdpindex{usage}{MMMMI-6}
+  \item {\verbatim@font \verb*&\interval&}\pfill 
+		\hdpindex{usage}{MMMMI-2}, \hdpindex{usage}{MMMMI-4}
+
+  \indexspace
+{\bfseries\hfil N\hfil}\nopagebreak
+
+  \item {\verbatim@font \verb*&\ninterval&}\pfill 
+		\hdpindex{usage}{MMMMI-5}
+
+  \indexspace
+{\bfseries\hfil O\hfil}\nopagebreak
+
+  \item {\verbatim@font \verb*&open&}\pfill \hdpindex{usage}{MMMMI-3}
+  \item {\verbatim@font \verb*&open left&}\pfill 
+		\hdpindex{usage}{MMMMI-3}
+  \item {\verbatim@font \verb*&open right&}\pfill 
+		\hdpindex{usage}{MMMMI-3}
+
+  \indexspace
+{\bfseries\hfil S\hfil}\nopagebreak
+
+  \item {\verbatim@font \verb*&scaled&}\pfill \hdpindex{usage}{MMMMI-3}
+  \item {\verbatim@font \verb*&separator&}\pfill 
+		\hdpindex{usage}{MMMMI-2}
+  \item {\verbatim@font \verb*&smart fences&}\pfill 
+		\hdpindex{usage}{MMMMI-2}
+  \item {\verbatim@font \verb*&soft fences&}\pfill 
+		\hdpindex{usage}{MMMMI-2}
+
+  \indexspace
+{\bfseries\hfil U\hfil}\nopagebreak
+
+  \item {\verbatim@font \verb*&\uinterval&}\pfill 
+		\hdpindex{usage}{MMMMI-5}
+  \item {\verbatim@font \verb*&\usepackage&}\pfill 
+		\hdpindex{usage}{MMMMI-2}
+
+  \indexspace
+{\bfseries\hfil X\hfil}\nopagebreak
+
+  \item {\verbatim@font \verb*&\xinterval&}\pfill 
+		\hdpindex{usage}{MMMMI-4, MMMMI-5}
+
+ \end{theindex}
