@@ -1,0 +1,10 @@
+\xpg@aux {}{french}
+\contentsline {section}{\numberline {1}Options de package}{2}{section.0.1}%
+\contentsline {section}{\numberline {2}Composer un intervalle}{3}{section.0.2}%
+\contentsline {section}{\numberline {3}Produit, réunion et intersection d'intervalles}{4}{section.0.3}%
+\contentsline {subsection}{\numberline {3.1}Produit}{4}{subsection.0.3.1}%
+\contentsline {subsection}{\numberline {3.2}Réunion}{5}{subsection.0.3.2}%
+\contentsline {subsection}{\numberline {3.3}Intersection}{6}{subsection.0.3.3}%
+\contentsline {section}{\numberline {4}Inégalités}{6}{section.0.4}%
+\contentsline {section}{Historique des modifications}{6}{equation.16}%
+\contentsline {section}{Index}{7}{equation.16}%

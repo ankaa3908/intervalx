@@ -39,6 +39,16 @@
 \RequirePackage{stmaryrd}
 \ProvidesExplPackage{intervalx}{}{v1.0.0}{Formatting mathematical intervals and inequalities.}
 
+\@ifpackagelater{expl3}{2024-12-08}{}
+  {
+    \PackageError { intervalx } { Support~package~expl3~too~old }
+      {
+        expl3~version~too~old,~`intervalx`~requires~a~version~later~than:~2024-12-08.\MessageBreak
+        Loading~intervalx~will~abort.
+      }
+      \tex_endinput:D
+  }
+
 \AtBeginDocument{
   \cs_if_exist:NF \leqslant
     { \usepackage{amssymb} }

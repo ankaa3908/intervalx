@@ -28,6 +28,44 @@
 % \fi
 %
 %<*readme>
+# `intervalx` – Formatting mathematical intervals and inequalities.
+
+---
+![Static Badge](https://img.shields.io/badge/LaTeX_3-blue?style=for-the-badge&logo=LaTeX&logoColor=%23008080&labelColor=%23EDE9E9&color=%23008080)
+
+![Static Badge](https://img.shields.io/badge/Requires-expl3_2024--12--08-purple?style=flat-square) ![Static Badge](https://img.shields.io/badge/Verification_system-l3build-%2300007D?style=flat-square)
+
+---
+
+## Description
+
+The package is an extension to the `interval` package written by Lars Madsen. Apart from the `\interval` macro which is the same, the package also helps typeset different mathematical relations between intervals:
+- `\xinterval` for interval product
+- `\uinterval` for interval union
+- `\ninterval` for interval intersection
+
+In addition, an `\ineq` macro is provided to typeset inequalities. Its use is fairly similar to that of `\interval`.
+
+## Author
+
+This package is maintained by Valentin Dao: vdao.texdev@gmail.com
+
+## License
+
+Released under the [LaTeX Project Public License v1.3c](https://www.latex-project.org/lppl/lppl-1-3c.pdf) or later.
+
+This work has the LPPL maintenance status `maintained`.
+
+## Files
+
+The bundle contains the following files:
+```
+README.md                   This file.
+intervalx.ins               The installation file.
+intervalx.dtx               The source file, along with the derived files:
+- intervalx-doc-en.pdf      The english package documentation in PDF format.
+- intervalx-doc-fr.pdf      The french package documentation in PDF format.
+```
 %</readme>
 %
 %<*doc-en>
@@ -171,7 +209,7 @@ end
 \usepackage{cleveref}
 
 \def\sarg{*}
-\def\filecreationdate{2025-11-13}
+\def\filecreationdate{2025-11-16}
 \def\default#1{\frenchspacing\hfill(défaut: #1)}
 
 \IndexPrologue{
@@ -198,7 +236,7 @@ end
   \thanks{E-mail: \href{mailto:vdao.texdev@gmail.com}{vdao.texdev@gmail.com}}
 }
 
-\date{Realsed \filecreationdate}
+\date{Released \filecreationdate}
 
 \maketitle
 
@@ -251,16 +289,16 @@ Here are the options that can be declared using \cs{usepackage}:
   \begin{syntax}
   \meta{token}\default{,}
   \end{syntax}
-  Controls the character inserted between the interval bounds.
+  Controls the character inserted between the interval endpoints.
 \end{function}
 
 \section{Typeset an interval}
 
 \begin{function}{\interval}
   \begin{syntax}
-  \sarg\oarg{keyval}\marg{list of limits}
+  \sarg\oarg{keys}\marg{list of endpoints}
   \end{syntax}
-  To typeset an interval, simply use the macro in math mode, entering the limits in the form of a list:
+  To typeset an interval, simply use the macro in math mode, entering the endpoints in the form of a list:
 \end{function}
 
 \begin{codestore}[ex1]
@@ -271,7 +309,7 @@ Here are the options that can be declared using \cs{usepackage}:
 \tsdemo{ex1}
 
 \begin{function}{open, open right, open left}
-  To change the brackets' direction, you can use the option provided here.
+  To change the direction of the brackets, use the option provided here.
 \end{function}
 
 \begin{codestore}[ex2]
@@ -283,7 +321,7 @@ Here are the options that can be declared using \cs{usepackage}:
 \end{codestore}
 \tsdemo{ex2}
 
-The direction of the brackets also adapts itslef to \verb|-\infty| and \verb|+\infty|, provided that the corresponding option remains enabled.
+The direction of the brackets also adapts itself to \verb|-\infty| and \verb|+\infty|, provided that the corresponding option remains enabled.
 
 \begin{codestore}[ex3]
   \begin{equation}
@@ -296,8 +334,7 @@ The direction of the brackets also adapts itslef to \verb|-\infty| and \verb|+\i
   \begin{syntax}
   big, Big, bigg, Bigg, auto\default{auto}
   \end{syntax}
-  It is also possible to adjust the brackets/parentheses' size through the \texttt{scaled} key, which has the same usage as in the \pkg{interval} package.
-  Il est également possible d'ajuster la taille des crochets/parenthèses à travers la clé \texttt{scaled}, qui a le même comportement que dans le package \pkg{interval}.
+  It is also possible to adjust the brackets/parentheses' size through the \texttt{scaled} key, which has the same usage as in the \pkg{interval} package: \texttt{auto} applies \cs{left} and \cs{right}, while the other options use the delimiters \cs{bigl}/\cs{bigr}\dots
 \end{function}
 
 \begin{codestore}[ex4]
@@ -316,7 +353,6 @@ Finally, the starred variant typesets integer intervals by using the \pkg{stmary
 \end{codestore}
 \tsdemo{ex5}
 
-\section{Product, reunioin}
 \section{Interval product, union, and intersection}
 
 \pkg{intervalx} also makes it easier to typeset product, union, and intersection relations between intervals.
@@ -376,7 +412,7 @@ To combine this macro with the keys of \cs{interval}, the latter must be specifi
   \begin{syntax}
     \oarg{keys}\marg{\&-list}
   \end{syntax}
-  Again, interval intersections are typeset using the ampersand as a delimiter. The use of keys is also identical to \cs{xinterval} and \cs{uinterval}.
+  Again, interval intersection is typeset using the ampersand as a delimiter. The use of keys is also identical to \cs{xinterval} and \cs{uinterval}.
 \end{function}
 
 \begin{tsremark}[Mnemonic:]
@@ -394,9 +430,9 @@ To combine this macro with the keys of \cs{interval}, the latter must be specifi
 
 \begin{function}{\ineq}
   \begin{syntax}
-    \sarg\oarg{keys}\marg{list of limits}\oarg{variable}
+    \sarg\oarg{keys}\marg{list of bounds}\oarg{variable}
   \end{syntax}
-  The composition of inequalities is quite similar to that of intervals, with a few differences. The keys \texttt{open right}, \texttt{open left} and \texttt{open} are also available to make it easy to write strict or non-strict inequalities. In addition to the bounds, it is also possible to specify the variable, which defaults to $x$. Finally, the starred variant of the macro uses the alternative symbols from \pkg{amssymb} for non-strict inequalities.
+  The composition of inequalities is quite similar to that of intervals, with a few differences. The keys \texttt{open right}, \texttt{open left} and \texttt{open} are also available to make it easy to write strict or non-strict inequalities. In addition to the bounds, you can also specify the variable, which defaults to $x$. Finally, the starred variant of the macro uses the alternative symbols from \pkg{amssymb} for non-strict inequalities.
 
 \end{function}
 
@@ -411,8 +447,10 @@ To combine this macro with the keys of \cs{interval}, the latter must be specifi
 \end{codestore}
 \tsdemo{ex10}
 
-\begin{changelog}[sectioncmd=\section*]
-\shortversion{v=1.0.0, date=2025-07-26} 
+\addcontentsline{toc}{section}{Changelog}
+
+\begin{changelog}[sectioncmd=\section*, changes=Initial version]
+\shortversion{v=1.0.0, date=2025-11-16} 
 \end{changelog}
 
 \PrintIndex
@@ -565,7 +603,7 @@ end
 \usepackage{cleveref}
 
 \def\sarg{*}
-\def\filecreationdate{13-11-2025}
+\def\filecreationdate{16-11-2025}
 \def\default#1{\frenchspacing\hfill(défaut: #1)}
 
 \IndexPrologue{
@@ -606,7 +644,7 @@ end
 
 \begin{abstract}
 
-Le présent package a pour but d'étendre les fonctionnalités d'\pkg{interval}\footnote{\href{https://ctan.org/pkg/interval}{Voir sur \textsc{ctan}}} en améliorant la macro principale et en y ajoutant quelques unes. Bien que l'implémentation soit modernisée car utilisant \pkg{expl3}, l'approche n'est que très peu différente de celle employée par Lars Madsen. Ainsi, la plupart des clés porteront le même nom. Même si \pkg{intervalx} se présente comme une extension d'\pkg{interval}, de nouvelles macros pour la composition d'inégalités ont tout de même été implémentées.
+Le présent package a pour but d'étendre les fonctionnalités d'\pkg{interval}\footnote{\href{https://ctan.org/pkg/interval}{Voir sur \textsc{ctan}}} en améliorant la macro principale et en y ajoutant quelques-unes. Bien que l'implémentation soit modernisée car utilisant \pkg{expl3}, l'approche n'est que très peu différente de celle employée par Lars Madsen. Ainsi, la plupart des clés porteront le même nom. Même si \pkg{intervalx} se présente comme une extension d'\pkg{interval}, de nouvelles macros pour la composition d'inégalités ont tout de même été implémentées.
 
 \end{abstract}
 
@@ -660,7 +698,7 @@ Voici les options de package pouvant être déclarées avec \cs{usepackage}:
 
 \begin{function}{\interval}
   \begin{syntax}
-  \sarg\oarg{liste de clés}\marg{liste des bornes}
+  \sarg\oarg{clés}\marg{liste de bornes}
   \end{syntax}
   Pour composer un intervalle, il suffit d'employer la macro en mode mathématique en renseignant les bornes sous forme d'une liste: 
 \end{function}
@@ -673,7 +711,7 @@ Voici les options de package pouvant être déclarées avec \cs{usepackage}:
 \tsdemo{ex1}
 
 \begin{function}{open, open right, open left}
-  Pour changer le sens des crochets, on peut employer les options ici présentes
+  Pour changer le sens des crochets, on peut employer les options ici présentes.
 \end{function}
 
 \begin{codestore}[ex2]
@@ -685,7 +723,7 @@ Voici les options de package pouvant être déclarées avec \cs{usepackage}:
 \end{codestore}
 \tsdemo{ex2}
 
-Le sens des crochets d'adapte aussi de lui-même à \verb|-\infty| et \verb|+\infty|, pourvu que l'option associée demeure activée.
+Le sens des crochets s'adapte aussi de lui-même à \verb|-\infty| et \verb|+\infty|, pourvu que l'option associée demeure activée.
 
 \begin{codestore}[ex3]
   \begin{equation}
@@ -698,7 +736,7 @@ Le sens des crochets d'adapte aussi de lui-même à \verb|-\infty| et \verb|+\in
   \begin{syntax}
   big, Big, bigg, Bigg, auto\default{auto}
   \end{syntax}
-  Il est également possible d'ajuster la taille des crochets/parenthèses à travers la clé \texttt{scaled}, qui a le même comportement que dans le package \pkg{interval}.
+  Il est également possible d'ajuster la taille des crochets/parenthèses à travers la clé \texttt{scaled}, qui a le même comportement que dans le package \pkg{interval}: \texttt{auto} applique \cs{left} et \cs{right} tandis que les autres options utilisent les délimiteurs \cs{bigl}/\cs{bigr}\dots
 \end{function}
 
 \begin{codestore}[ex4]
@@ -719,7 +757,7 @@ Enfin, la variante étoilée permet de composer des intervalles d'entiers, en ut
 
 \section{Produit, réunion et intersection d'intervalles}
 
-\pkg{intervalx} permet aussi de plus facilement saisir les relations de produit, de réunion, et d'intersection d'intervalles.
+\pkg{intervalx} permet aussi de plus facilement saisir les relations de produit, de réunion et d'intersection d'intervalles.
 
 \subsection{Produit}
 
@@ -727,7 +765,7 @@ Enfin, la variante étoilée permet de composer des intervalles d'entiers, en ut
   \begin{syntax}
   \oarg{clés}\marg{*-liste}
   \end{syntax}
-  Pour les produits, l'argument principale prend la même forme qu'avec \cs{interval}, mais les différents intervalles sont séparés d'un astérisque.
+  Pour les produits, l'argument principal prend la même forme qu'avec \cs{interval}, mais les différents intervalles sont séparés d'un astérisque.
 \end{function}
 
 \begin{tsremark}[Astuce mnémotechnique:]
@@ -756,11 +794,11 @@ Pour combiner cette macro avec les clés d'\cs{interval}, ces dernières doivent
   \begin{syntax}
     \oarg{clés}\marg{\textbar-liste}
   \end{syntax}
-  De même, la réunion d'intervalles se compose en utilisant cette fois ci la barre verticale comme délimiteur.
+  De même, la réunion d'intervalles se compose en utilisant cette fois-ci la barre verticale comme délimiteur.
 \end{function}
 
 \begin{tsremark}[Astuce mnémotechnique:]
-  Le \enquote{u} au début du nom de la macro évoque le symbole de réunion $\cup$, tandis que la barre verticale est une façon en programmation de dénoter le \textit{ou} mathématique.
+  Le \enquote{u} au début du nom de la macro évoque le symbole de réunion $\cup$, tandis que la barre verticale est une façon en programmation de dénoter le \textit{ou} logique.
 \end{tsremark}
 
 \begin{codestore}[ex8]
@@ -780,7 +818,7 @@ Pour combiner cette macro avec les clés d'\cs{interval}, ces dernières doivent
 \end{function}
 
 \begin{tsremark}[Astuce mnémotechnique:]
-  Le \enquote{n} évoque quant à lui le symbole d'interséction $\cap$, avec l'éperluette désigant en programmation le \emph{et} mathématique.
+  Le \enquote{n} évoque quant à lui le symbole d'intersection $\cap$, avec l'éperluette désignant en programmation le \emph{et} logique.
 \end{tsremark}
 
 \begin{codestore}[ex9]
@@ -794,7 +832,7 @@ Pour combiner cette macro avec les clés d'\cs{interval}, ces dernières doivent
 
 \begin{function}{\ineq}
   \begin{syntax}
-    \sarg\oarg{clés}\marg{liste des bornes}\oarg{variable}
+    \sarg\oarg{clés}\marg{liste de bornes}\oarg{variable}
   \end{syntax}
   La composition d'inégalités est assez similaire à celle des intervalles, à quelques différences près. Les clés \texttt{open right}, \texttt{open left} et \texttt{open} sont aussi accessibles pour permettre de facilement écrire des inégalités strictes ou larges. En plus des bornes, il est également possible d'indiquer la variable, correspondant à $x$ par défaut. Enfin, la variante étoilée de la macro emploie les symboles alternatifs d'\pkg{amssymb} pour les inégalités larges. 
 \end{function}
@@ -810,8 +848,10 @@ Pour combiner cette macro avec les clés d'\cs{interval}, ces dernières doivent
 \end{codestore}
 \tsdemo{ex10}
 
+\addcontentsline{toc}{section}{Historique des modifications}
+
 \begin{changelog}[sectioncmd=\section*]
-\shortversion{v=1.0.0, date=2025-07-26, changes=Version initiale.} 
+\shortversion{v=1.0.0, date=16-11-2025, changes=Version initiale.} 
 \end{changelog}
 
 \PrintIndex
@@ -829,6 +869,16 @@ Pour combiner cette macro avec les clés d'\cs{interval}, ces dernières doivent
 \RequirePackage{expl3}[2024-12-08]
 \RequirePackage{stmaryrd}
 \ProvidesExplPackage{intervalx}{}{v1.0.0}{Formatting mathematical intervals and inequalities.}
+
+\@ifpackagelater{expl3}{2024-12-08}{}
+  {
+    \PackageError { intervalx } { Support~package~expl3~too~old }
+      {
+        expl3~version~too~old,~`intervalx`~requires~a~version~later~than:~2024-12-08.\MessageBreak
+        Loading~intervalx~will~abort.
+      }
+      \tex_endinput:D
+  }
 
 \AtBeginDocument{
   \cs_if_exist:NF \leqslant
