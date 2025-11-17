@@ -7,8 +7,8 @@ Scanning style file c:/texlive/2025/texmf-dist/makeindex/latex/gind.ist.........
 ** Input style error (file = c:/texlive/2025/texmf-dist/makeindex/latex/gind.ist, line = 78):
    -- Unknown specifier lethead_flag.
 ...done (13 attributes redefined, 3 ignored).
-Scanning input file intervalx-doc-fr.idx....done (21 entries accepted, 0 rejected).
-Sorting entries....done (100 comparisons).
-Generating output file intervalx-doc-fr.ind....done (67 lines written, 0 warnings).
+Scanning input file intervalx-doc-fr.idx....done (20 entries accepted, 0 rejected).
+Sorting entries....done (94 comparisons).
+Generating output file intervalx-doc-fr.ind....done (65 lines written, 0 warnings).
 Output written in intervalx-doc-fr.ind.
 Transcript written in intervalx-doc-fr.ilg.

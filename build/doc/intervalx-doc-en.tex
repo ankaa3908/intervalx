@@ -174,7 +174,7 @@ end
 
 \def\sarg{*}
 \def\filecreationdate{2025-11-16}
-\def\default#1{\frenchspacing\hfill(défaut: #1)}
+\def\default#1{\frenchspacing\hfill(default: #1)}
 
 \IndexPrologue{
   \section*{Index}
@@ -296,19 +296,19 @@ The direction of the brackets also adapts itself to \verb|-\infty| and \verb|+\i
 
 \begin{function}{scaled}
   \begin{syntax}
-  big, Big, bigg, Bigg, auto\default{auto}
+  big, Big, bigg, Bigg
   \end{syntax}
-  It is also possible to adjust the brackets/parentheses' size through the \texttt{scaled} key, which has the same usage as in the \pkg{interval} package: \texttt{auto} applies \cs{left} and \cs{right}, while the other options use the delimiters \cs{bigl}/\cs{bigr}\dots
+  It is also possible to adjust the brackets/parentheses' size through the \texttt{scaled} key, which has the same usage as in the \pkg{interval} package.
 \end{function}
 
 \begin{codestore}[ex4]
   \begin{equation}
-    \interval[scaled]{\frac{1}{2}, \frac{3}{2}}
+    \interval[scaled=bigg]{\frac{1}{2}, \frac{3}{2}}
   \end{equation}
 \end{codestore}
 \tsdemo{ex4}
 
-Finally, the starred variant typesets integer intervals by using the \pkg{stmaryrd} package.\footnote{\href{https://ctan.org/pkg/stmaryrd}{See on \textsc{ctan}}} All the keys described above are compatible with these symbols.
+The starred variant typesets integer intervals by using the \pkg{stmaryrd} package.\footnote{\href{https://ctan.org/pkg/stmaryrd}{See on \textsc{ctan}}} All the keys described above are compatible with these symbols.
 
 \begin{codestore}[ex5]
   \begin{equation}
@@ -316,6 +316,24 @@ Finally, the starred variant typesets integer intervals by using the \pkg{stmary
   \end{equation}
 \end{codestore}
 \tsdemo{ex5}
+
+\begin{function}{\ointerval, \linterval, \rinterval}
+  \begin{syntax}
+    \sarg\marg{open, keys}\marg{endpoints}
+    \sarg\marg{open left, keys}\marg{endpoints}
+    \sarg\marg{open right, keys}\marg{endpoints}
+  \end{syntax}
+  Finally, the package provides short hands through these three macros:
+\end{function}
+
+\begin{codestore}[ex6]
+  \begin{gather}
+    \ointerval[scaled=bigg]{\frac{1}{2}, \frac{9}{2}}\\
+    \linterval{3, 8}\\
+    \rinterval{3, 8}
+  \end{gather}
+\end{codestore}
+\tsdemo{ex6}
 
 \section{Interval product, union, and intersection}
 
@@ -334,21 +352,21 @@ Finally, the starred variant typesets integer intervals by using the \pkg{stmary
   The \enquote{x} at the beginning of the macro name evokes the product symbol $\times$, while the asterisk is a way of denoting it in programming.
 \end{tsremark}
 
-\begin{codestore}[ex6]
+\begin{codestore}[ex7]
   \begin{equation}
     \xinterval{2, 10 * 1, 15 * -3, 19}
   \end{equation}
 \end{codestore}
-\tsdemo{ex6}
+\tsdemo{ex7}
 
 To combine this macro with the keys of \cs{interval}, the latter must be specified as a list delimited by semicolons (the comma being already used to separate the different keys). Here is an example to clarify this point.
 
-\begin{codestore}[ex7]
+\begin{codestore}[ex8]
   \begin{equation}
-    \xinterval[open right, scaled; open left, scaled]{2, 10 * 1, 15}
+    \xinterval[open right, scaled=Big; open left, scaled=Big]{2, 10 * 1, 15}
   \end{equation}
 \end{codestore}
-\tsdemo{ex7}
+\tsdemo{ex8}
 
 \subsection{Union}
 
@@ -363,12 +381,12 @@ To combine this macro with the keys of \cs{interval}, the latter must be specifi
   The \enquote{u} at the beginning of the macro name evokes the union symbol $\cup$, while the vertical bar is a way in programming to denote the logical \textit{or}.
 \end{tsremark}
 
-\begin{codestore}[ex8]
+\begin{codestore}[ex9]
   \begin{equation}
     \uinterval{2, 10 | 1, 15}
   \end{equation}
 \end{codestore}
-\tsdemo{ex8}
+\tsdemo{ex9}
 
 \subsection{Intersection}
 
@@ -383,12 +401,12 @@ To combine this macro with the keys of \cs{interval}, the latter must be specifi
   The \enquote{n} evokes the intersection symbol $\cap$, with the ampersand denoting the logical \emph{and} in programming.
 \end{tsremark}
 
-\begin{codestore}[ex9]
+\begin{codestore}[ex10]
   \begin{equation}
     \ninterval{3, 20 & \pi, e^3}
   \end{equation}
 \end{codestore}
-\tsdemo{ex9}
+\tsdemo{ex10}
 
 \section{Inequalities}
 
@@ -400,7 +418,7 @@ To combine this macro with the keys of \cs{interval}, the latter must be specifi
 
 \end{function}
 
-\begin{codestore}[ex10]
+\begin{codestore}[ex11]
   \begin{gather}
     \ineq{a, b}\\
     \ineq*{a, b}[y]\\
@@ -409,7 +427,7 @@ To combine this macro with the keys of \cs{interval}, the latter must be specifi
     \ineq[open]{a, b}
   \end{gather}
 \end{codestore}
-\tsdemo{ex10}
+\tsdemo{ex11}
 
 \addcontentsline{toc}{section}{Changelog}
 

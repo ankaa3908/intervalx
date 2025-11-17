@@ -10,13 +10,19 @@
 
 \begin{gather*}
   \interval{a, b}\\
-  \interval[scaled]{\frac 12, \frac 34}\\
-  \interval[scaled, open right]{\frac 12, \frac 34}\\
-  \interval[scaled, open left]{\frac 12, \frac 34}\\
-  \interval[scaled, open]{\frac 12, \frac 34}\\
-  \interval*[scaled, open right]{\frac 12, \frac 34}\\
-  \interval*[scaled, open left]{\frac 12, \frac 34}\\
-  \interval*[scaled, open]{\frac 12, \frac 34}\\
+  \interval[scaled=bigg]{\frac 12, \frac 34}\\
+  \interval[scaled=bigg, open right]{\frac 12, \frac 34}\\
+  \interval[scaled=bigg, open left]{\frac 12, \frac 34}\\
+  \interval[scaled=bigg, open]{\frac 12, \frac 34}\\
+  \interval*[scaled=bigg, open right]{\frac 12, \frac 34}\\
+  \interval*[scaled=bigg, open left]{\frac 12, \frac 34}\\
+  \interval*[scaled=bigg, open]{\frac 12, \frac 34}\\
+  \ointerval[scaled=Bigg]{\frac 12, \frac 34}
+  \linterval[scaled=Bigg]{\frac 12, \frac 34}
+  \rinterval[scaled=Bigg]{\frac 12, \frac 34}
+  \ointerval*[scaled=Bigg]{\frac 12, \frac 34}
+  \linterval*[scaled=Bigg]{\frac 12, \frac 34}
+  \rinterval*[scaled=Bigg]{\frac 12, \frac 34}
   \xinterval[open left; open right; open]{a, b * c, d * e, f}\\
   \ninterval[open left; open right; open]{a, b & c, d & e, f}\\
   \uinterval[open left; open right; open]{a, b | c, d | e, f}\\

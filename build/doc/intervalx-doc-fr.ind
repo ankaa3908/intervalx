@@ -1,12 +1,6 @@
 
  \begin{theindex} 
  \makeatletter\scan@allowedfalse
-{\bfseries\hfil B\hfil}\nopagebreak
-
-  \item {\verbatim@font \verb*&\bigl&}\pfill \hdpindex{usage}{MMMMI-3}
-  \item {\verbatim@font \verb*&\bigr&}\pfill \hdpindex{usage}{MMMMI-3}
-
-  \indexspace
 {\bfseries\hfil I\hfil}\nopagebreak
 
   \item {\verbatim@font \verb*&\ineq&}\pfill \hdpindex{usage}{MMMMI-6}
@@ -17,7 +11,8 @@
   \indexspace
 {\bfseries\hfil L\hfil}\nopagebreak
 
-  \item {\verbatim@font \verb*&\left&}\pfill \hdpindex{usage}{MMMMI-3}
+  \item {\verbatim@font \verb*&\linterval&}\pfill 
+		\hdpindex{usage}{MMMMI-4}
 
   \indexspace
 {\bfseries\hfil N\hfil}\nopagebreak
@@ -28,6 +23,8 @@
   \indexspace
 {\bfseries\hfil O\hfil}\nopagebreak
 
+  \item {\verbatim@font \verb*&\ointerval&}\pfill 
+		\hdpindex{usage}{MMMMI-4}
   \item {\verbatim@font \verb*&open&}\pfill \hdpindex{usage}{MMMMI-3}
   \item {\verbatim@font \verb*&open left&}\pfill 
 		\hdpindex{usage}{MMMMI-3}
@@ -37,7 +34,8 @@
   \indexspace
 {\bfseries\hfil R\hfil}\nopagebreak
 
-  \item {\verbatim@font \verb*&\right&}\pfill \hdpindex{usage}{MMMMI-3}
+  \item {\verbatim@font \verb*&\rinterval&}\pfill 
+		\hdpindex{usage}{MMMMI-4}
 
   \indexspace
 {\bfseries\hfil S\hfil}\nopagebreak

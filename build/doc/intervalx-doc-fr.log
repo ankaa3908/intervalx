@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)  (format=lualatex 2025.9.12)  16 NOV 2025 14:16
+This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)  (format=lualatex 2025.9.12)  17 NOV 2025 18:13
  system commands enabled.
 **\input intervalx-doc-fr.tex
 Lua module: luaotfload 2024-12-03 v3.29 Lua based OpenType font support
@@ -1560,10 +1560,10 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
     \interval{-\infty, +\infty}
   \end{equation}.
 > \l__scontents_processed_body_lines_tl=  \begin{equation}
-    \interval[scaled]{\frac{1}{2}, \frac{3}{2}}
+    \interval[scaled=bigg]{\frac{1}{2}, \frac{3}{2}}
   \end{equation}%^^Ascheol%.
 > \l__scontents_typestored_arg_tl=  \begin{equation}
-    \interval[scaled]{\frac{1}{2}, \frac{3}{2}}
+    \interval[scaled=bigg]{\frac{1}{2}, \frac{3}{2}}
   \end{equation}.
 
 
@@ -1574,35 +1574,51 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
 > \l__scontents_typestored_arg_tl=  \begin{equation}
     \interval*{2, 10}
   \end{equation}.
+> \l__scontents_processed_body_lines_tl=  \begin{gather}
+    \ointerval[scaled=bigg]{\frac{1}{2}, \frac{9}{2}}\\
+    \linterval{3, 8}\\
+    \rinterval{3, 8}
+  \end{gather}%^^Ascheol%.
+> \l__scontents_typestored_arg_tl=  \begin{gather}
+    \ointerval[scaled=bigg]{\frac{1}{2}, \frac{9}{2}}\\
+    \linterval{3, 8}\\
+    \rinterval{3, 8}
+  \end{gather}.
+scaled=bigg
 
-Overfull \hbox (11.35016pt too wide) in paragraph at lines 336--341
+
+scaled=bigg
+
+
+
+Overfull \hbox (11.35016pt too wide) in paragraph at lines 354--359
 \TU/Mercury-TextG4(0)/m/n/12 Pour les pro-duits, l’ar-gu-ment prin-ci-pal pren
 d la même forme qu’avec []\TU/lmtt/m/n/12 \interval[]\TU/Mercury-TextG4(0)/m
 /n/12 ,
  []
 
+
+
+[4]
 LaTeX Font Info:    Font shape `TU/Mercury-TextG4(0)/m/sl' in size <10.95> not 
 available
 (Font)              Font shape `TU/Mercury-TextG4(0)/m/it' tried instead on inp
-ut line 343.
+ut line 361.
 LaTeX Font Info:    Font shape `TU/Mercury-TextG4(0)/b/sl' in size <10.95> not 
 available
 (Font)              Font shape `TU/Mercury-TextG4(0)/b/it' tried instead on inp
-ut line 343.
+ut line 361.
 > \l__scontents_processed_body_lines_tl=  \begin{equation}
     \xinterval{2, 10 * 1, 15 * -3, 19}
   \end{equation}%^^Ascheol%.
 > \l__scontents_typestored_arg_tl=  \begin{equation}
     \xinterval{2, 10 * 1, 15 * -3, 19}
   \end{equation}.
-
-
-[4]
 > \l__scontents_processed_body_lines_tl=  \begin{equation}
-    \xinterval[open right, scaled; open left, scaled]{2, 10 * 1, 15}
+    \xinterval[open right, scaled=Big; open left, scaled=Big]{2, 10 * 1, 15}
   \end{equation}%^^Ascheol%.
 > \l__scontents_typestored_arg_tl=  \begin{equation}
-    \xinterval[open right, scaled; open left, scaled]{2, 10 * 1, 15}
+    \xinterval[open right, scaled=Big; open left, scaled=Big]{2, 10 * 1, 15}
   \end{equation}.
 > \l__scontents_processed_body_lines_tl=  \begin{equation}
     \uinterval{2, 10 | 1, 15}
@@ -1647,9 +1663,9 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 
 )
-Package doc Info: Deleted " as a short reference for \verb(*) on input line 433
+Package doc Info: Deleted " as a short reference for \verb(*) on input line 451
 .
-Package doc Info: | not a short reference for \verb(*) on input line 433.
+Package doc Info: | not a short reference for \verb(*) on input line 451.
 
 Package l3doc Info: Generate the index by executing
 (l3doc)                 makeindex -s gind.ist -o intervalx-doc-fr.ind
@@ -1667,23 +1683,23 @@ L3 programming layer <2025-08-13>
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package rerunfilecheck Info: File `intervalx-doc-fr.out' has not changed.
-(rerunfilecheck)             Checksum: 2A3585C3821C82AE849F323627332CBC;2014.
+(rerunfilecheck)             Checksum: 78D15ECCA2D6EA732A23D156597D3E6F;1960.
 Package rerunfilecheck Info: File `intervalx-doc-fr.hd' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 )
 
 Here is how much of LuaTeX's memory you used:
- 33409 strings out of 470117
- 156359,1648299 words of node,token memory allocated
- 2481 words of node memory still in use:
+ 33442 strings out of 470117
+ 156364,1648299 words of node,token memory allocated
+ 2541 words of node memory still in use:
    12 hlist, 3 vlist, 2 rule, 15 disc, 2 local_par, 2 math, 40 glue, 30 kern, 9 
-penalty, 3 margin_kern, 138 glyph, 88 attribute, 73 glue_spec, 46 attribute_list
-, 1 write nodes
-   avail lists: 1:8,2:2720,3:590,4:3092,5:2501,6:128,7:4820,8:50,9:7342,10:24,11
-:429,12:1
- 61141 multiletter control sequences out of 65536+600000
- 152 fonts using 52222139 bytes
- 89i,13n,117p,1019b,2547s stack positions out of 10000i,1000n,20000p,200000b,200000s
+penalty, 3 margin_kern, 138 glyph, 108 attribute, 73 glue_spec, 56 attribute_lis
+t, 1 write nodes
+   avail lists: 1:5,2:2789,3:601,4:3352,5:2690,6:128,7:4701,8:50,9:7939,10:25,11
+:457,12:1
+ 61169 multiletter control sequences out of 65536+600000
+ 152 fonts using 52221891 bytes
+ 89i,14n,117p,1019b,2547s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/valen/AppData/Local/Microsoft/Windows/Fonts/Mercury-TextG4BoldItalic.o
 tf><c:/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmmonolt10-bold.otf><c:/
 texlive/2025/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf><c:/texliv
@@ -1702,10 +1718,10 @@ wCMMath-Regular.otf><c:/Users/valen/AppData/Local/Microsoft/Windows/Fonts/Whitne
 y-Medium.otf><c:/Users/valen/AppData/Local/Microsoft/Windows/Fonts/Mercury-TextG
 4-Roman-OK.otf><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10
 .pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on intervalx-doc-fr.pdf (7 pages, 88292 bytes).
+Output written on intervalx-doc-fr.pdf (7 pages, 89756 bytes).
 
-PDF statistics: 362 PDF objects out of 1000 (max. 8388607)
- 300 compressed objects within 3 object streams
- 109 named destinations out of 1000 (max. 131072)
- 153 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 364 PDF objects out of 1000 (max. 8388607)
+ 301 compressed objects within 4 object streams
+ 114 named destinations out of 1000 (max. 131072)
+ 145 words of extra memory for PDF output out of 10000 (max. 100000000)
 

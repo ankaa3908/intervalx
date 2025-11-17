@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)  (format=lualatex 2025.9.12)  16 NOV 2025 14:14
+This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)  (format=lualatex 2025.9.12)  17 NOV 2025 18:12
  system commands enabled.
 **\input intervalx-doc-en.tex
 Lua module: luaotfload 2024-12-03 v3.29 Lua based OpenType font support
@@ -1545,10 +1545,10 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
     \interval{-\infty, +\infty}
   \end{equation}.
 > \l__scontents_processed_body_lines_tl=  \begin{equation}
-    \interval[scaled]{\frac{1}{2}, \frac{3}{2}}
+    \interval[scaled=bigg]{\frac{1}{2}, \frac{3}{2}}
   \end{equation}%^^Ascheol%.
 > \l__scontents_typestored_arg_tl=  \begin{equation}
-    \interval[scaled]{\frac{1}{2}, \frac{3}{2}}
+    \interval[scaled=bigg]{\frac{1}{2}, \frac{3}{2}}
   \end{equation}.
 
 
@@ -1559,44 +1559,60 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
 > \l__scontents_typestored_arg_tl=  \begin{equation}
     \interval*{2, 10}
   \end{equation}.
-LaTeX Font Info:    Font shape `TU/Mercury-TextG4(0)/m/sl' in size <10.95> not 
-available
-(Font)              Font shape `TU/Mercury-TextG4(0)/m/it' tried instead on inp
-ut line 333.
-LaTeX Font Info:    Font shape `TU/Mercury-TextG4(0)/b/sl' in size <10.95> not 
-available
-(Font)              Font shape `TU/Mercury-TextG4(0)/b/it' tried instead on inp
-ut line 333.
-> \l__scontents_processed_body_lines_tl=  \begin{equation}
-    \xinterval{2, 10 * 1, 15 * -3, 19}
-  \end{equation}%^^Ascheol%.
-> \l__scontents_typestored_arg_tl=  \begin{equation}
-    \xinterval{2, 10 * 1, 15 * -3, 19}
-  \end{equation}.
+> \l__scontents_processed_body_lines_tl=  \begin{gather}
+    \ointerval[scaled=bigg]{\frac{1}{2}, \frac{9}{2}}\\
+    \linterval{3, 8}\\
+    \rinterval{3, 8}
+  \end{gather}%^^Ascheol%.
+> \l__scontents_typestored_arg_tl=  \begin{gather}
+    \ointerval[scaled=bigg]{\frac{1}{2}, \frac{9}{2}}\\
+    \linterval{3, 8}\\
+    \rinterval{3, 8}
+  \end{gather}.
+scaled=bigg
+
+
+scaled=bigg
+
+
 
 
 [4]
+LaTeX Font Info:    Font shape `TU/Mercury-TextG4(0)/m/sl' in size <10.95> not 
+available
+(Font)              Font shape `TU/Mercury-TextG4(0)/m/it' tried instead on inp
+ut line 351.
+LaTeX Font Info:    Font shape `TU/Mercury-TextG4(0)/b/sl' in size <10.95> not 
+available
+(Font)              Font shape `TU/Mercury-TextG4(0)/b/it' tried instead on inp
+ut line 351.
 > \l__scontents_processed_body_lines_tl=  \begin{equation}
-    \xinterval[open right, scaled; open left, scaled]{2, 10 * 1, 15}
+    \xinterval{2, 10 * 1, 15 * -3, 19}
   \end{equation}%^^Ascheol%.
 > \l__scontents_typestored_arg_tl=  \begin{equation}
-    \xinterval[open right, scaled; open left, scaled]{2, 10 * 1, 15}
+    \xinterval{2, 10 * 1, 15 * -3, 19}
+  \end{equation}.
+> \l__scontents_processed_body_lines_tl=  \begin{equation}
+    \xinterval[open right, scaled=Big; open left, scaled=Big]{2, 10 * 1, 15}
+  \end{equation}%^^Ascheol%.
+> \l__scontents_typestored_arg_tl=  \begin{equation}
+    \xinterval[open right, scaled=Big; open left, scaled=Big]{2, 10 * 1, 15}
   \end{equation}.
 > \l__scontents_processed_body_lines_tl=  \begin{equation}
     \uinterval{2, 10 | 1, 15}
   \end{equation}%^^Ascheol%.
 > \l__scontents_typestored_arg_tl=  \begin{equation}
     \uinterval{2, 10 | 1, 15}
-  \end{equation}.
-> \l__scontents_processed_body_lines_tl=  \begin{equation}
-    \ninterval{3, 20 & \pi, e^3}
-  \end{equation}%^^Ascheol%.
-> \l__scontents_typestored_arg_tl=  \begin{equation}
-    \ninterval{3, 20 & \pi, e^3}
   \end{equation}.
 
 
 [5]
+> \l__scontents_processed_body_lines_tl=  \begin{equation}
+    \ninterval{3, 20 & \pi, e^3}
+  \end{equation}%^^Ascheol%.
+> \l__scontents_typestored_arg_tl=  \begin{equation}
+    \ninterval{3, 20 & \pi, e^3}
+  \end{equation}.
 > \l__scontents_processed_body_lines_tl=  \begin{gather}
     \ineq{a, b}\\
     \ineq*{a, b}[y]\\
@@ -1611,7 +1627,9 @@ ut line 333.
     \ineq[open left]{a, b}\\
     \ineq[open]{a, b}
   \end{gather}.
- (./intervalx-doc-en.ind
+
+
+[6] (./intervalx-doc-en.ind
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
@@ -1622,16 +1640,10 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 
 
-[6]
-
-
-
-
-
 )
-Package doc Info: Deleted " as a short reference for \verb(*) on input line 424
+Package doc Info: Deleted " as a short reference for \verb(*) on input line 442
 .
-Package doc Info: | not a short reference for \verb(*) on input line 424.
+Package doc Info: | not a short reference for \verb(*) on input line 442.
 
 Package l3doc Info: Generate the index by executing
 (l3doc)                 makeindex -s gind.ist -o intervalx-doc-en.ind
@@ -1649,23 +1661,23 @@ L3 programming layer <2025-08-13>
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package rerunfilecheck Info: File `intervalx-doc-en.out' has not changed.
-(rerunfilecheck)             Checksum: E50CAFE8B60741B140F6AA5F4AFDD023;1784.
+(rerunfilecheck)             Checksum: 220F7766C3978F83BAF28DF7E6C39CB9;1730.
 Package rerunfilecheck Info: File `intervalx-doc-en.hd' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 )
 
 Here is how much of LuaTeX's memory you used:
- 33315 strings out of 470117
- 156364,1648299 words of node,token memory allocated
- 1998 words of node memory still in use:
+ 33348 strings out of 470117
+ 156360,1648299 words of node,token memory allocated
+ 2038 words of node memory still in use:
    11 hlist, 3 vlist, 2 rule, 12 disc, 2 local_par, 2 math, 30 glue, 19 kern, 4 
-penalty, 2 margin_kern, 111 glyph, 40 attribute, 73 glue_spec, 40 attribute_list
+penalty, 2 margin_kern, 111 glyph, 50 attribute, 73 glue_spec, 50 attribute_list
 , 1 write nodes
-   avail lists: 1:4,2:2396,3:354,4:2817,5:2236,6:89,7:6188,8:48,9:6670,10:24,11:
-457,12:1
- 61047 multiletter control sequences out of 65536+600000
- 152 fonts using 52222015 bytes
- 89i,13n,117p,1019b,2547s stack positions out of 10000i,1000n,20000p,200000b,200000s
+   avail lists: 1:7,2:2460,3:597,4:3355,5:2681,6:127,7:4533,8:49,9:7937,10:25,11
+:435,12:1
+ 61075 multiletter control sequences out of 65536+600000
+ 152 fonts using 52222139 bytes
+ 89i,14n,117p,1019b,2547s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/valen/AppData/Local/Microsoft/Windows/Fonts/Mercury-TextG4BoldItalic.o
 tf><c:/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmmonolt10-bold.otf><c:/
 texlive/2025/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.otf><c:/texliv
@@ -1684,10 +1696,10 @@ wCMMath-Regular.otf><c:/Users/valen/AppData/Local/Microsoft/Windows/Fonts/Whitne
 y-Medium.otf><c:/Users/valen/AppData/Local/Microsoft/Windows/Fonts/Mercury-TextG
 4-Roman-OK.otf><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10
 .pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on intervalx-doc-en.pdf (7 pages, 86620 bytes).
+Output written on intervalx-doc-en.pdf (7 pages, 87912 bytes).
 
-PDF statistics: 361 PDF objects out of 1000 (max. 8388607)
- 299 compressed objects within 3 object streams
- 109 named destinations out of 1000 (max. 131072)
- 153 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 362 PDF objects out of 1000 (max. 8388607)
+ 300 compressed objects within 3 object streams
+ 114 named destinations out of 1000 (max. 131072)
+ 145 words of extra memory for PDF output out of 10000 (max. 100000000)
 

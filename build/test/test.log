@@ -168,6 +168,19 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 11.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+scaled=Bigg
+scaled=Bigg
+scaled=Bigg
+scaled=Bigg
+scaled=Bigg
+scaled=Bigg
+scaled=Bigg
+scaled=Bigg
+scaled=Bigg
+scaled=Bigg
+scaled=Bigg
+scaled=Bigg
+
 
 [1
 
@@ -178,16 +191,16 @@ END-TEST-LOG
 )
 
 Here is how much of LuaTeX's memory you used:
- 2102 strings out of 470117
+ 2108 strings out of 470117
  100000,662416 words of node,token memory allocated
- 479 words of node memory still in use:
-   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 6 attribute, 51 glue_spec, 6 attribute_list, 1 write nodes
-   avail lists: 2:412,3:40,4:3,5:168,6:2,7:680,8:24,9:832
- 30521 multiletter control sequences out of 65536+600000
+ 687 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 58 attribute, 51 glue_spec, 58 attribute_list, 1 write nodes
+   avail lists: 2:522,3:123,4:3,5:216,6:2,7:880,8:102,9:1266
+ 30527 multiletter control sequences out of 65536+600000
  36 fonts using 2026543 bytes
- 58i,11n,62p,189b,285s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 58i,13n,62p,189b,293s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroman10-regular.otf><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on test.pdf (1 page, 56630 bytes).
+Output written on test.pdf (1 page, 60116 bytes).
 
 PDF statistics: 37 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)

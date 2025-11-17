@@ -231,23 +231,6 @@
     open .meta:n = { open~left, open~right },
 
     scaled .choice:,
-      scaled / auto .code:n =
-        {
-          \tl_set:Nn \l__intervalx_pkg_open_fence_tl
-            {
-              \tex_mathopen:D {}
-              \tex_mathclose:D
-              \c_group_begin_token
-              \tex_left:D
-              \l__intervalx_pkg_left_fence_tl
-            }
-          \tl_set:Nn \l__intervalx_pkg_close_fence_tl
-            {
-              \group_insert_after:N \c_group_end_token
-              \tex_right:D
-              \l__intervalx_pkg_right_fence_tl
-            }
-        },
       scaled / big .code:n =
         {
           \tl_set_eq:Nc \l__intervalx_pkg_left_size_tl { #1l }
@@ -268,7 +251,6 @@
           \tl_set_eq:Nc \l__intervalx_pkg_left_size_tl { #1l }
           \tl_set_eq:Nc \l__intervalx_pkg_right_size_tl { #1r }
         },
-    scaled .default:n = { auto },
   }
 
 \NewDocumentCommand{\interval}{ s O{} m }
@@ -276,6 +258,36 @@
     \group_begin:
     \IfBooleanT{#1}{ \bool_set_true:N \l__intervalx_pkg_integer_bracket_bool }
     \keys_set:nn { interval } { #2 }
+    \__intervalx_pkg_parse_interval_arg:n { #3 }
+    \group_end:
+  }
+
+\NewDocumentCommand{\ointerval}{ s O{} m }
+  {
+    \group_begin:
+    \IfBooleanT{#1}{ \bool_set_true:N \l__intervalx_pkg_integer_bracket_bool }
+    \iow_log:n { #2 }
+    \keys_set:nn { interval } { open, #2 }
+    \__intervalx_pkg_parse_interval_arg:n { #3 }
+    \group_end:
+  }
+
+\NewDocumentCommand{\linterval}{ s O{} m }
+  {
+    \group_begin:
+    \IfBooleanT{#1}{ \bool_set_true:N \l__intervalx_pkg_integer_bracket_bool }
+    \iow_log:n { #2 }
+    \keys_set:nn { interval } { open~left, #2 }
+    \__intervalx_pkg_parse_interval_arg:n { #3 }
+    \group_end:
+  }
+
+\NewDocumentCommand{\rinterval}{ s O{} m }
+  {
+    \group_begin:
+    \IfBooleanT{#1}{ \bool_set_true:N \l__intervalx_pkg_integer_bracket_bool }
+    \iow_log:n { #2 }
+    \keys_set:nn { interval } { open~right, #2 }
     \__intervalx_pkg_parse_interval_arg:n { #3 }
     \group_end:
   }
